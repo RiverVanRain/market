@@ -51,6 +51,9 @@ function market_init() {
 	elgg_register_action('market/save', __DIR__ . '/actions/save.php');
 	elgg_register_action('market/delete', __DIR__ . '/actions/delete.php');
 	elgg_register_action('market/delete_img', __DIR__ . '/actions/delete_img.php');
+	
+	//Likes
+	elgg_register_plugin_hook_handler('likes:is_likable', 'object:market', 'Elgg\Values::getTrue');
 }
 
 function market_page_handler($segments, $identifier) {
