@@ -96,6 +96,7 @@ if (!$error) {
 
 // only try to save base entity if no errors
 if (!$error) {
+	$post->status = 'open';
 	if ($post->save()) {
 		// remove sticky form entries
 		elgg_clear_sticky_form('market');

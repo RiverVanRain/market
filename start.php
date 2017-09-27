@@ -48,6 +48,8 @@ function market_init() {
 	elgg_register_plugin_hook_handler('cron', 'daily', 'market_expire_cron_hook');
 
 	//Actions
+	elgg_register_action('market/sold', __DIR__ . '/actions/sold.php');
+	elgg_register_action('market/open', __DIR__ . '/actions/open.php');
 	elgg_register_action('market/save', __DIR__ . '/actions/save.php');
 	elgg_register_action('market/delete', __DIR__ . '/actions/delete.php');
 	elgg_register_action('market/delete_img', __DIR__ . '/actions/delete_img.php');

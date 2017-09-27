@@ -9,6 +9,10 @@ $tu = $entity->time_updated;
 ?>
 
 <div class="cart-profile-header">
+<?php
+if($entity->status == "sold"){ echo "<blockquote><center><b>The Item has been marked as SOLD by the owner</b></center></blockquote>"; }
+
+?>
 	<div class="cart-profile-details">
 		<?php
 		echo elgg_view_menu('entity', [
@@ -73,13 +77,31 @@ $tu = $entity->time_updated;
 	}
 
 	if (elgg_get_plugin_setting('market_pmbutton', 'market') == 'yes') {
-		if ($entity->owner_guid != elgg_get_logged_in_user_guid()) {
+		if ($entity->owner_guid != elgg_get_logged_in_user_guid() && $entity->status != "sold") {
 			$entity_body .= elgg_view('output/url', array(
 							'class' => 'elgg-button elgg-button-action mtm',
 							'href' => "messages/compose?send_to={$entity->owner_guid}",
 							'text' => elgg_echo('market:pmbuttontext'),
 							));
 		}
+	}
+	
+	$elgg_ts = time();
+	$elgg_token = generate_action_token($elgg_ts);
+	
+	if ($entity->owner_guid == elgg_get_logged_in_user_guid()) {
+		if($entity->status != "sold"){
+			$href = "action/market/sold?guid={$entity->guid}&__elgg_ts=".$elgg_ts."&__elgg_token=".$elgg_token;
+			$text = elgg_echo('Mark as Sold');
+		} else {
+			$href = "action/market/open?guid={$entity->guid}&__elgg_ts=".$elgg_ts."&__elgg_token=".$elgg_token;
+			$text = elgg_echo('Open for '.$entity->market_type);
+		}
+			$entity_body .= elgg_view('output/url', array(
+				'class' => 'elgg-button elgg-button-action mtm',
+				'href' => $href,
+				'text' => $text,
+			));
 	}
 
 	echo elgg_view_image_block($img, $entity_body, array('class' => 'market-image-block'));
