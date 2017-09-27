@@ -45,7 +45,7 @@ $values = array(
 	);
 
 // fail if a required entity isn't set
-$required = array('title', 'marketcategory', 'market_type', 'description');
+$required = array('title', 'market_type', 'description');
 
 // load from POST and do sanity and access checking
 foreach ($values as $name => $default) {
@@ -96,6 +96,7 @@ if (!$error) {
 
 // only try to save base entity if no errors
 if (!$error) {
+	$post->status = 'open';
 	if ($post->save()) {
 		// remove sticky form entries
 		elgg_clear_sticky_form('market');

@@ -38,13 +38,17 @@ $content = elgg_list_entities(array(
 				'list_type_toggle' => false,
 				));
 
+$filter_context = "mine";
+
 if (elgg_is_xhr()) {
 	echo $content;
 } else {
 	$layout = elgg_view_layout('content', [
 		'title' => $title,
 		'content' => $content,
-		'filter' => false,
+		'filter' => elgg_view('filters/market/all', [
+			'filter_context' => $filter_context,
+		])
 	]);
 	echo elgg_view_page($title, $layout);
 }
