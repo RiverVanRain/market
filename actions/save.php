@@ -45,7 +45,7 @@ $values = array(
 	);
 
 // fail if a required entity isn't set
-$required = array('title', 'marketcategory', 'market_type', 'description');
+$required = array('title', 'market_type', 'description');
 
 // load from POST and do sanity and access checking
 foreach ($values as $name => $default) {

@@ -16,7 +16,9 @@ $vars['owner_url'] = "market/owned/$owner->username";
 $by_line = elgg_view('page/elements/by_line', $vars);
 
 $meta[] = $by_line;
+if($entity->marketcategory == "" || $entity->marketcategory == null){}else{
 $meta[] = '<strong>'.elgg_echo('market:category').'</strong>: ' .elgg_echo("market:category:{$entity->marketcategory}");
+}
 $meta[] = '<strong>'.elgg_echo('market:type') .'</strong>: ' .elgg_echo("market:type:{$entity->market_type}");
 
 if ((elgg_get_plugin_setting('market_custom', 'market') == 'yes') && $entity->custom) {
