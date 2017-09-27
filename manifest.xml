@@ -16,10 +16,5 @@
 		<type>elgg_release</type>
 		<version>2.0</version>
 	</requires>
-	
-	<conflicts>
-		<type>plugin</type>
-		<name>market_tools</name>
-	</conflicts>
 </plugin_manifest>
 
