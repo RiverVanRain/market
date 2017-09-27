@@ -73,10 +73,10 @@ $tu = $entity->time_updated;
 	}
 
 	if (elgg_get_plugin_setting('market_pmbutton', 'market') == 'yes') {
-		if ($owner->guid != elgg_get_logged_in_user_guid()) {
+		if ($entity->owner_guid != elgg_get_logged_in_user_guid()) {
 			$entity_body .= elgg_view('output/url', array(
 							'class' => 'elgg-button elgg-button-action mtm',
-							'href' => "messages/compose?send_to={$owner->guid}",
+							'href' => "messages/compose?send_to={$entity->owner_guid}",
 							'text' => elgg_echo('market:pmbuttontext'),
 							));
 		}
