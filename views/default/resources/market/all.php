@@ -12,6 +12,7 @@ $selected_type = elgg_extract('type', $vars);
 
 $namevalue_pairs = array();
 $namevalue_pairs[] = array('name' => 'market_type', 'value' => $selected_type, 'operand' => '=');
+$namevalue_pairs[] = array('name' => 'status', 'value' => 'open', 'operand' => '=');
 
 elgg_register_title_button();
 
@@ -24,13 +25,14 @@ $options = array(
 	'list_type_toggle' => false,
 	'item_class' => 'market-item-list',
 	'no_results' => elgg_echo('market:none:found'),
+	'metadata_name_value_pairs' => array('name' => 'status', 'value' => 'open', 'operand' => '='),
 );
 
 // Get a list of market posts in a specific category
 if (!$selected_type || $selected_type == 'all') {
 	$title = elgg_echo('market:type:all');
 	$filter_context = 'all';
-	$content = elgg_list_entities($options);
+	$content = elgg_list_entities_from_metadata($options);
 } else {
 	$title = elgg_echo("market:type:{$selected_type}");
 	elgg_push_breadcrumb(elgg_echo('market:title'), "market/all");
