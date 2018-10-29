@@ -11,8 +11,6 @@ $imagenum = (int) get_input('img');
 // Make sure we actually have permission to edit
 $post = get_entity($guid);
 if ($post->getSubtype() == "market" && $post->canEdit()) {
-	
-	elgg_load_library('market');
 
 	// Delete the market post
 	$return = market_delete_image($post, $imagenum);
@@ -27,4 +25,4 @@ if ($post->getSubtype() == "market" && $post->canEdit()) {
 	register_error(elgg_echo("market:image:notdeleted"));
 }
 
-forward(REFERER);	
+forward(REFERER);

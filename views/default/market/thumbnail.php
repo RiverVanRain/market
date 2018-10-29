@@ -13,9 +13,16 @@ $size =  $vars['size'];
 $class = $vars['class'];
 $imagenum = $vars['imagenum'];
 $tu = $vars['tu'];
-
-echo elgg_view('output/img', array(
+if($guid == ""){
+	echo elgg_view('output/img', array(
+		'src' => elgg_get_simplecache_url('market/noimage'.$size.'.png'),
+		'class' => "elgg-photo $class",
+		'alt' => $imagenum,
+	));
+} else {
+	echo elgg_view('output/img', array(
 		'src' => elgg_get_site_url() . "market/image/{$guid}/{$imagenum}/{$size}/{$tu}",
 		'class' => "elgg-photo $class",
 		'alt' => $imagenum,
 	));
+}

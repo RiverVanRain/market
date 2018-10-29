@@ -33,16 +33,16 @@ if ($imagenum == 1) {
 $filehandler = new ElggFile();
 $filehandler->owner_guid = $entity->owner_guid;
 $filehandler->setFilename("market/" . $entity->guid . $size . $imagenum . ".jpg");
-		
+
 $success = false;
 if ($filehandler->open("read")) {
 	if ($contents = $filehandler->read($filehandler->getSize())) {
 		$success = true;
-	} 
+	}
 }
 
 if (!$success) {
-	$path = elgg_get_site_url() . "mod/market/graphics/noimage{$size}.png";
+	$path = elgg_get_simplecache_url('market/noimage'.$size.'.png');
 	header("Location: $path");
 	exit;
 }
@@ -58,4 +58,3 @@ $splitString = str_split($contents, 1024);
 foreach($splitString as $chunk) {
 	echo $chunk;
 }
-

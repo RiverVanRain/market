@@ -8,14 +8,13 @@
  * @link https://wzm.me
  * @version 2.2
  */
-elgg_load_library('market');
 
 elgg_gatekeeper();
 
 if (elgg_get_plugin_setting('market_adminonly', 'market') == 'yes') {
 	elgg_admin_gatekeeper();
 }
-		
+
 // How many classifieds can a user have
 $marketmax = elgg_get_plugin_setting('market_max', 'market');
 if(!$marketmax) {
@@ -32,14 +31,14 @@ $marketactive = elgg_get_entities(array(
 $title = elgg_echo('market:add:title');
 
 // Show form, or error if users has used his quota
-if ($marketmax == 0 || elgg_is_admin_logged_in()) { 
+if ($marketmax == 0 || elgg_is_admin_logged_in()) {
 	$form_vars = array(
 			'name' => 'marketForm',
 			'enctype' => 'multipart/form-data'
 			);
 	$body_vars = market_prepare_form_vars(NULL);
 	$content = elgg_view_form("market/save", $form_vars, $body_vars);
-} elseif ($marketmax > $marketactive) { 
+} elseif ($marketmax > $marketactive) {
 	$form_vars = array(
 			'name' => 'marketForm',
 			'enctype' => 'multipart/form-data'

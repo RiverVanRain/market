@@ -6,13 +6,11 @@
 
 // Get input data
 $guid = (int) get_input('guid');
-		
+
 // Make sure we actually have permission to edit
 $post = get_entity($guid);
 if (elgg_instanceof($post, 'object', 'market') && $post->canEdit()) {
-	
-	elgg_load_library('market');
-	
+
 	$container = get_entity($post->container_guid);
 
 	// Delete the market post

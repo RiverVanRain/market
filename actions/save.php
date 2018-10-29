@@ -4,8 +4,6 @@
  * @package market
  */
 
-elgg_load_library('market');
- 
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('market');
 
@@ -71,7 +69,7 @@ foreach ($values as $name => $default) {
 		case 'container_guid':
 			// this can't be empty or saving the base entity fails
 			if (!empty($value)) {
-				if (can_write_to_container($user->getGUID(), $value)) {
+				if (get_entity($value)->canWriteToContainer()) {
 					$values[$name] = $value;
 				} else {
 					$error = elgg_echo("market:error:cannot_write_to_container");
@@ -143,4 +141,3 @@ if (!$error) {
 	register_error($error);
 	forward($error_forward_url);
 }
-
