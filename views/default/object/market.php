@@ -17,7 +17,12 @@ if (!elgg_instanceof($entity, 'object', 'market')) {
 
 $full = elgg_extract('full_view', $vars);
 if ($full) {
-	echo elgg_view('object/market/profile', $vars);
+	$fullview_icon = elgg_view_entity_icon(get_entity($entity->owner_guid), 'small');
+	echo elgg_view('object/elements/summary', [
+		'icon' => $fullview_icon,
+		'entity' => $entity,
+	]);
+	echo "<p>".elgg_view('object/market/profile', $vars)."</p>";
 	return;
 }
 

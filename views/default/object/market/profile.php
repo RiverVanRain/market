@@ -7,22 +7,15 @@ if (!elgg_instanceof($entity, 'object', 'market')) {
 $currency = elgg_get_plugin_setting('market_currency', 'market');
 $tu = $entity->time_updated;
 
-?>
+if($entity->status == "sold"){ 
+	$entity_body .= "<blockquote><center><b>The Item has been marked as SOLD by the owner</b></center></blockquote>"; 
+}
 
-<div class="cart-profile-header">
-<?php
-if($entity->status == "sold"){ echo "<blockquote><center><b>The Item has been marked as SOLD by the owner</b></center></blockquote>"; }
+$entity_body .= '<div class="cart-profile-details">';
+$entity_body .= elgg_view('object/market/meta', $vars);
+$entity_body .= '</div>';
 
-?>
-	<div class="cart-profile-details">
-		<?php
-		echo elgg_view('object/market/meta', $vars);
-		?>
-	</div>
-	<?php
-	$entity_body = '';
-
-	$entity_body .= "<div class='mbm mts'><span class='market_pricetag'><b>" . elgg_echo('market:price') . "</b> {$currency} {$entity->price}</span></div>";
+$entity_body .= "<div class='mbm mts'><span class='market_pricetag'><b>" . elgg_echo('market:price') . "</b> {$currency} {$entity->price}</span></div>";
 
 	$thumbnail = elgg_view('output/img', array(
 					'src' => "market/image/{$entity->guid}/1/large/{$tu}.jpg",
@@ -101,4 +94,3 @@ if($entity->status == "sold"){ echo "<blockquote><center><b>The Item has been ma
 
 	echo elgg_view_image_block($img, $entity_body, array('class' => 'market-image-block'));
 	?>
-</div>
