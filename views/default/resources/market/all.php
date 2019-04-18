@@ -32,14 +32,14 @@ $options = array(
 if (!$selected_type || $selected_type == 'all') {
 	$title = elgg_echo('market:type:all');
 	$filter_context = 'all';
-	$content = elgg_list_entities_from_metadata($options);
+	$content = elgg_list_entities($options);
 } else {
 	$title = elgg_echo("market:type:{$selected_type}");
 	elgg_push_breadcrumb(elgg_echo('market:title'), "market/all");
 	elgg_push_breadcrumb(elgg_echo("market:type:{$selected_type}"), "market/all/{$selected_type}");
 	$options['metadata_name_value_pairs'] = $namevalue_pairs;
 	$filter_context = $selected_type;
-	$content = elgg_list_entities_from_metadata($options);
+	$content = elgg_list_entities($options);
 }
 
 if (elgg_is_xhr()) {

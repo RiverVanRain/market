@@ -14,22 +14,27 @@ elgg_register_event_handler('init','system','market_init');
 
 function market_init() {
 
-	elgg_register_library('market', elgg_get_plugins_path() . 'market/lib/market.php');
+	require_once __DIR__ . '/lib/market.php';
 	
-	elgg_register_page_handler('market','market_page_handler');
 	elgg_register_plugin_hook_handler('entity:url', 'object', 'market_entity_url_handler');
 	
 	elgg_register_entity_type('object', 'market');
 
-	$item = new ElggMenuItem('market', elgg_echo('market:title'), 'market/all');
-	elgg_register_menu_item('site', $item);
+	elgg_register_menu_item('site', array(
+					'name' => elgg_echo('market:title'),
+					'text' => elgg_echo('market:title'),
+					'href' => 'market/all',
+					'icon' => 'credit-card',
+	));
 
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'market_owner_block_menu');
 	elgg_extend_view('page/elements/sidebar', 'market/sidebar', 100);
 	
 	//Groups
-	add_group_tool_option('market', elgg_echo('market:enablemarket'), true);
-	elgg_extend_view('groups/tool_latest', 'market/group_module');
+	elgg()->group_tools->register('market', [
+		'default_on' => true,
+		'label' => elgg_echo('market:enablemarket'),
+	]);
 
 	//CSS
 	elgg_extend_view('elgg.css', 'market/css');
@@ -46,93 +51,9 @@ function market_init() {
 
 	//Cron job
 	elgg_register_plugin_hook_handler('cron', 'daily', 'market_expire_cron_hook');
-
-	//Actions
-	elgg_register_action('market/sold', __DIR__ . '/actions/sold.php');
-	elgg_register_action('market/open', __DIR__ . '/actions/open.php');
-	elgg_register_action('market/save', __DIR__ . '/actions/save.php');
-	elgg_register_action('market/delete', __DIR__ . '/actions/delete.php');
-	elgg_register_action('market/delete_img', __DIR__ . '/actions/delete_img.php');
 	
 	//Likes
 	elgg_register_plugin_hook_handler('likes:is_likable', 'object:market', 'Elgg\Values::getTrue');
-}
-
-function market_page_handler($segments, $identifier) {
-	$page = array_shift($segments);
-
-	switch ($page) {
-		default :
-		case 'all' :
-			echo elgg_view('resources/market/all', [
-				'type' => $segments[0],
-				'identifier' => $identifier,
-			]);
-			return true;
-			
-		case 'category' :
-			echo elgg_view('resources/market/category', [
-				'cat' => $segments[0],
-				'identifier' => $identifier,
-			]);
-			return true;
-
-		case 'add' :
-			echo elgg_view('resources/market/add', [
-				'container_guid' => $segments[0],
-				'identifier' => $identifier,
-			]);
-			return true;
-
-		case 'edit' :
-			echo elgg_view('resources/market/edit', [
-				'guid' => $segments[0],
-				'identifier' => $identifier,
-			]);
-			return true;
-		
-		case 'owned':
-		    echo elgg_view('resources/market/owned', [
-				'username' => $segments[0],
-				'identifier' => $identifier,
-			]);
-			return true;
-			
-		case 'group':
-		    echo elgg_view('resources/market/group', [
-				'group_guid' => $segments[0],
-				'subpage' => $segments[1],
-				'lower' => $segments[2],
-				'upper' => $segments[3],
-				'identifier' => $identifier,
-			]);
-			return true;
-
-		case 'view' :
-			echo elgg_view('resources/market/view', [
-				'guid' => $segments[0],
-				'identifier' => $identifier,
-			]);
-			return true;
-			
-		case 'image':
-		    echo elgg_view('resources/market/image', [
-				'guid' => $segments[0],
-				'imagenum' => $segments[1],
-				'size' => $segments[2],
-				'tu' => $segments[3],
-				'identifier' => $identifier,
-			]);
-			return true;
-			
-		case 'terms' :
-			echo elgg_view('resources/market/terms', [
-				'identifier' => $identifier,
-			]);
-			return true;
-	}
-
-	return false;
 }
 
 function market_entity_url_handler($hook, $type, $return, $params) {
@@ -161,7 +82,6 @@ function market_owner_block_menu($hook, $type, $return, $params) {
 
 // Cron function to delete old market posts
 function market_expire_cron_hook($hook, $entity_type, $returnvalue, $params) {
-	elgg_load_library('market');
 
 	$market_ttl = elgg_get_plugin_setting('market_expire','market');
 	if ($market_ttl == 0) {

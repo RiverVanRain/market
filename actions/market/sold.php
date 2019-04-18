@@ -11,24 +11,20 @@ $guid = (int) get_input('guid');
 $post = get_entity($guid);
 if (elgg_instanceof($post, 'object', 'market') && $post->canEdit()) {
 	
-	elgg_load_library('market');
-	
 	$container = get_entity($post->container_guid);
 
 	// Delete the market post
-	$return = market_delete_post($post);
-	if ($return) {
-		// Success message
-		system_message(elgg_echo("market:deleted"));
+	$post->status = 'sold';
+	$post->save();
+	
+	// Success message
+	system_message(elgg_echo("Item marked as sold!"));
+	
 		if (elgg_instanceof($container, 'group')) {
 			forward("market/group/$container->guid/all");
 		} else {
-			forward("market/owned/$container->username");
+			forward("market/view/$guid/$container->title");
 		}
-	} else {
-		// Error message
-		register_error(elgg_echo("market:notdeleted"));
-	}
 } else {
 	register_error(elgg_echo('market:none:found'));
 }

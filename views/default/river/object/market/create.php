@@ -23,8 +23,7 @@ $image = elgg_view('output/url', array(
 			'text' => $img,
 			));
 
-echo elgg_view('river/item', array(
-	'item' => $vars['item'],
-	'message' => $excerpt,
-	'attachments' => $image,
-));
+$vars['message'] = $excerpt;
+$vars['attachments'] = $image;
+
+echo elgg_view('river/elements/layout', $vars);

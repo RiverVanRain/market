@@ -11,7 +11,6 @@
 $guid = elgg_extract('guid', $vars);
 
 elgg_entity_gatekeeper($guid, 'object', 'market');
-elgg_group_gatekeeper();
 
 $entity = get_entity($guid);
 

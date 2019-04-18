@@ -9,9 +9,8 @@
  * @version 2.2
  */
 
-elgg_group_gatekeeper();
-
 $owner = elgg_get_page_owner_entity();
+elgg_entity_gatekeeper($owner->guid, 'group');
 if (!$owner) {
 	forward('', '404');
 }

@@ -8,7 +8,6 @@
  * @link https://wzm.me
  * @version 2.2
  */
-elgg_load_library('market');
 
 $guid = elgg_extract('guid', $vars);
 $entity = get_entity($guid);

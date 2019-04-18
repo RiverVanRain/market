@@ -42,7 +42,7 @@ if ($filehandler->open("read")) {
 }
 
 if (!$success) {
-	$path = elgg_get_site_url() . "mod/market/graphics/noimage{$size}.png";
+	$path = elgg_get_simplecache_url('market/noimage'.$size.'.png');
 	header("Location: $path");
 	exit;
 }

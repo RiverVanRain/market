@@ -6,6 +6,7 @@ if (!elgg_instanceof($entity, 'object', 'market')) {
 
 $currency = elgg_get_plugin_setting('market_currency', 'market');
 $tu = $entity->time_updated;
+
 ?>
 
 <div class="cart-profile-header">
@@ -15,12 +16,6 @@ if($entity->status == "sold"){ echo "<blockquote><center><b>The Item has been ma
 ?>
 	<div class="cart-profile-details">
 		<?php
-		echo elgg_view_menu('entity', [
-			'entity' => $entity,
-			'sort_by' => 'priority',
-			'class' => 'elgg-menu-hz',
-			'handler' => 'market',
-		]);
 		echo elgg_view('object/market/meta', $vars);
 		?>
 	</div>

@@ -31,7 +31,7 @@ $options = array(
 elgg_push_breadcrumb(elgg_echo('market:title'), 'market/all');
 elgg_push_breadcrumb(elgg_echo("market:category:{$selected_cat}"), "market/category/{$selected_cat}");
 
-$content = elgg_list_entities_from_metadata($options);
+$content = elgg_list_entities($options);
 
 if (elgg_is_xhr()) {
 	echo $content;

@@ -146,29 +146,28 @@ function market_add_image($post = NULL, $data = NULL, $imagenum = 0) {
 	$filehandler->open("write");
 	$filehandler->write($data);
 	$filehandler->close();
-		
-	$small = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),40,40, true);
-	$medium = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),153,153, true);
-	$large = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),200,200, false);
-	$master = get_resized_image_from_existing_file($filehandler->getFilenameOnFilestore(),600,800, false);
-
-	if ($small) {
 	
-		$sizes = array('small' => $small, 'medium' => $medium, 'large' => $large, 'master' => $master);
-		foreach($sizes as $size => $imgdata) {
-			
-				$thumb = new ElggFile();
-				$thumb->owner_guid = $post->owner_guid;
-				$thumb->setMimeType('image/jpeg');
-				$thumb->setFilename($prefix.$size.$filenum.'.jpg');
-				$thumb->open('write');
-				$thumb->write($imgdata);
-				$thumb->close();
-		}
-		
-		// Set image in metadata array
-		market_set_images($post, $imagenum);
-	}
+	$icon_sizes = elgg_get_icon_sizes('user');
+	$filename = $filehandler->getFilenameOnFilestore();
+	
+	$file_new = new ElggFile();
+	$file_new->owner_guid = $post->owner_guid;
+	$file_new->setFilename($prefix .'small'. $filenum . ".jpg");
+	elgg_save_resized_image($filename, $file_new->getFilenameOnFilestore(), $icon_sizes['small']);
+	$file_new = new ElggFile();
+	$file_new->owner_guid = $post->owner_guid;
+	$file_new->setFilename($prefix .'medium'. $filenum . ".jpg");
+	elgg_save_resized_image($filename, $file_new->getFilenameOnFilestore(), $icon_sizes['medium']);
+	$file_new = new ElggFile();
+	$file_new->owner_guid = $post->owner_guid;
+	$file_new->setFilename($prefix .'large'. $filenum . ".jpg");
+	elgg_save_resized_image($filename, $file_new->getFilenameOnFilestore(), $icon_sizes['large']);
+	$file_new = new ElggFile();
+	$file_new->owner_guid = $post->owner_guid;
+	$file_new->setFilename($prefix .'master'. $filenum . ".jpg");
+	elgg_save_resized_image($filename, $file_new->getFilenameOnFilestore(), $icon_sizes['master']);
+
+	market_set_images($post, $imagenum);
 }
 
 /**
