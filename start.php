@@ -28,7 +28,9 @@ function market_init() {
 	));
 
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'market_owner_block_menu');
-	elgg_extend_view('page/elements/sidebar', 'market/sidebar', 100);
+	if(elgg_in_context('market')){
+		elgg_extend_view('page/elements/sidebar', 'market/sidebar', 100);
+	}
 	
 	//Groups
 	elgg()->group_tools->register('market', [
