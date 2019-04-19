@@ -17,7 +17,12 @@ if (!elgg_instanceof($entity, 'object', 'market')) {
 
 $full = elgg_extract('full_view', $vars);
 if ($full) {
-	echo elgg_view('object/market/profile', $vars);
+	$fullview_icon = elgg_view_entity_icon(get_entity($entity->owner_guid), 'small');
+	echo elgg_view('object/elements/summary', [
+		'icon' => $fullview_icon,
+		'entity' => $entity,
+	]);
+	echo "<p>".elgg_view('object/market/profile', $vars)."</p>";
 	return;
 }
 
@@ -30,21 +35,21 @@ $title = elgg_view('output/url', [
 	'href' => $entity->getURL(),
 		]);
 
-if (!elgg_in_context('widgets')) {
-	$metadata = elgg_view_menu('entity', [
-		'entity' => $entity,
-		'sort_by' => 'priority',
-		'class' => 'elgg-menu-hz',
-		'handler' => 'market',
-	]);
-}
+// if (!elgg_in_context('widgets')) {
+// 	$metadata = elgg_view_menu('entity', [
+// 		'entity' => $entity,
+// 		'sort_by' => 'priority',
+// 		'class' => 'elgg-menu-hz',
+// 		'handler' => 'market',
+// 	]);
+// }
 
 $subtitle = elgg_view('object/market/meta', $vars);
 
 if (elgg_in_context('gallery')) {
 	$icon = elgg_view_entity_icon($entity, 'large');
 	echo elgg_view_module('aside', $title, $icon . $subtitle, [
-		'footer' => $metadata
+		// 'footer' => $metadata
 	]);
 } else {
 
@@ -53,7 +58,7 @@ if (elgg_in_context('gallery')) {
 		'entity' => $entity,
 		'title' => $title,
 		'subtitle' => $subtitle,
-		'metadata' => $metadata,
+		// 'metadata' => $metadata,
 		'content' => $description,
 	]);
 	

@@ -96,7 +96,7 @@ View the post here:
 	'market:tiny' => "tiny",
 		
 	//River
-	'river:create:object:market' => '%s posted a new ad in The Market %s',
+	'river:object:market:create' => '%s posted a new ad in The Market %s',
 	'river:update:object:market' => '%s updated the ad %s in The Market',
 	'river:comment:object:market' => '%s commented on The Market ad %s',
 

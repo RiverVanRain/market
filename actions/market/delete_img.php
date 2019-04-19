@@ -12,8 +12,6 @@ $imagenum = (int) get_input('img');
 $post = get_entity($guid);
 if ($post->getSubtype() == "market" && $post->canEdit()) {
 	
-	elgg_load_library('market');
-
 	// Delete the market post
 	$return = market_delete_image($post, $imagenum);
 	if ($return) {

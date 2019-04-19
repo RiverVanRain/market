@@ -4,8 +4,6 @@
  * @package market
  */
 
-elgg_load_library('market');
- 
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('market');
 
@@ -71,7 +69,7 @@ foreach ($values as $name => $default) {
 		case 'container_guid':
 			// this can't be empty or saving the base entity fails
 			if (!empty($value)) {
-				if (can_write_to_container($user->getGUID(), $value)) {
+				if (get_entity($value)->canWriteToContainer()) {
 					$values[$name] = $value;
 				} else {
 					$error = elgg_echo("market:error:cannot_write_to_container");
@@ -116,22 +114,26 @@ if (!$error) {
 
 		// Image 1 upload
 		if ((isset($_FILES['upload1']['name'])) && (substr_count($_FILES['upload1']['type'],'image/'))) {
-			$imgdata1 = get_uploaded_file('upload1');
+			$input = elgg_get_uploaded_files('upload1');
+			$imgdata1 = file_get_contents($input[0]->getPathname());
 			market_add_image($post, $imgdata1, 1);
 		}
 		// Image 2 upload
 		if ((isset($_FILES['upload2']['name'])) && (substr_count($_FILES['upload2']['type'],'image/'))) {
-			$imgdata2 = get_uploaded_file('upload2');
+			$input = elgg_get_uploaded_files('upload2');
+			$imgdata2 = file_get_contents($input[0]->getPathname());
 			market_add_image($post, $imgdata2, 2);
 		}
 		// Image 3 upload
 		if ((isset($_FILES['upload3']['name'])) && (substr_count($_FILES['upload3']['type'],'image/'))) {
-			$imgdata3 = get_uploaded_file('upload3');
+			$input = elgg_get_uploaded_files('upload3');
+			$imgdata3 = file_get_contents($input[0]->getPathname());
 			market_add_image($post, $imgdata3, 3);
 		}
 		// Image 4 upload
 		if ((isset($_FILES['upload4']['name'])) && (substr_count($_FILES['upload4']['type'],'image/'))) {
-			$imgdata4 = get_uploaded_file('upload4');
+			$input = elgg_get_uploaded_files('upload4');
+			$imgdata4 = file_get_contents($input[0]->getPathname());
 			market_add_image($post, $imgdata4, 4);
 		}
 		forward($post->getURL());
