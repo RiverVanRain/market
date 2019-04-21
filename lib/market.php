@@ -60,54 +60,10 @@ function market_delete_post($post = NULL) {
 		return false;
 	}
 
-	// Get owning user
-	$owner = $post->getOwnerEntity();
-	$owner_guid = $owner->guid;
-
-	// Delete the images
-	$prefix = "market/".$guid;
-		
-	$small = $prefix."small.jpg";
-	$medium = $prefix."medium.jpg";
-	$large = $prefix."large.jpg";
-	$master = $prefix."master.jpg";
-	$original = $prefix.".jpg";
-				
-	if ($small) {
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $owner_guid;
-		$delfile->setFilename($small);
-		$delfile->delete();
-	}
-
-	if ($medium) {
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $owner_guid;
-		$delfile->setFilename($medium);
-		$delfile->delete();
-	}
-
-	if ($large) {
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $owner_guid;
-		$delfile->setFilename($large);
-		$delfile->delete();
-	}
-
-	if ($master) {
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $owner_guid;
-		$delfile->setFilename($master);
-		$delfile->delete();
-	}
-
-	if ($original) {
-		$delfile = new ElggFile();
-		$delfile->owner_guid = $owner_guid;
-		$delfile->setFilename($original);
-		$delfile->delete();
-	}
-
+	market_delete_image($post, 1);
+	market_delete_image($post, 2);
+	market_delete_image($post, 3);
+	market_delete_image($post, 4);
 
 	// Delete the market post
 	$rowsaffected = $post->delete();
@@ -217,7 +173,7 @@ function market_delete_image($post = NULL, $imagenum) {
 	$owner_guid = $owner->guid;
 	$prefix = "market/{$post->guid}";
 
-	$names = array("{$prefix}small{$filenum}.jpg", "{$prefix}medium{$filenum}.jpg", "{$prefix}large{$filenum}.jpg", "{$prefix}master{$filenum}.jpg");
+	$names = array("{$prefix}{$filenum}.jpg", "{$prefix}small{$filenum}.jpg", "{$prefix}medium{$filenum}.jpg", "{$prefix}large{$filenum}.jpg", "{$prefix}master{$filenum}.jpg");
 	foreach($names as $name) {
 		$delfile = new ElggFile();
 		$delfile->owner_guid = $owner_guid;
