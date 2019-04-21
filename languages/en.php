@@ -7,6 +7,7 @@
 return array(
 	
 	// Menu items and titles	
+	'collection:object:market' => "Market posts",
 	'market' => "Market posts",
 	'market:posts' => "Market Posts",
 	'market:title' => "Market",
@@ -185,5 +186,14 @@ This happens automatically when market post are older than %s month(s).",
 	 'market:custom:good' => "Good",
 	 'market:custom:fair' => "Fair",
 	 'market:custom:poor' => "Poor",
+	 
+	 //  action files
+	 'market:action:open' => "Item marked as open!",
+	 'market:action:sold' => "Item marked as sold!",
+	 
+	 // Display Ads
+	 'market:mark:sold' => 'Mark as Sold',
+	 'market:mark:open' => 'Open for %s',
+	 
 );
 

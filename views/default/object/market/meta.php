@@ -22,7 +22,7 @@ $meta[] = '<strong>'.elgg_echo('market:category').'</strong>: ' .elgg_echo("mark
 $meta[] = '<strong>'.elgg_echo('market:type') .'</strong>: ' .elgg_echo("market:type:{$entity->market_type}");
 
 if ((elgg_get_plugin_setting('market_custom', 'market') == 'yes') && $entity->custom) {
-$meta[] = '<strong>'.elgg_echo('market:custom:text') .'</strong>: ' .elgg_echo($entity->custom);
+$meta[] = '<strong>'.elgg_echo('market:custom:text') .'</strong>: ' .elgg_echo("market:custom:{$entity->custom}");
 }
 
 if ((elgg_get_plugin_setting('location', 'market') == 'yes') && $entity->location) {

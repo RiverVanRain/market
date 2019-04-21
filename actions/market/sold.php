@@ -18,7 +18,7 @@ if (elgg_instanceof($post, 'object', 'market') && $post->canEdit()) {
 	$post->save();
 	
 	// Success message
-	system_message(elgg_echo("Item marked as sold!"));
+	system_message(elgg_echo('market:action:sold'));
 	
 		if (elgg_instanceof($container, 'group')) {
 			forward("market/group/$container->guid/all");
