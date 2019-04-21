@@ -32,6 +32,9 @@ function market_init() {
 		elgg_extend_view('page/elements/sidebar', 'market/sidebar', 100);
 	}
 	
+	// Register for the entity menu
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'market_entity_menu_setup');
+	
 	//Groups
 	elgg()->group_tools->register('market', [
 		'default_on' => true,
@@ -80,6 +83,22 @@ function market_owner_block_menu($hook, $type, $return, $params) {
 	}
 	return $return;
 
+}
+
+function market_entity_menu_setup($hook, $type, $return, $params){
+	if (elgg_in_context('market')) {
+		$entity = $params['entity'];
+		$url = elgg_add_action_tokens_to_url(elgg_get_site_url()."action/market/delete?guid=".$entity->guid);
+		foreach ($return as $key => $item) {
+    	if ($item->getName() == 'delete') {
+      	// Set the new URL
+      	$item->setHref($url);
+        break;
+      }
+    }
+
+	}
+	return $return;
 }
 
 // Cron function to delete old market posts
