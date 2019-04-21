@@ -40,6 +40,10 @@ return [
 		'group:object:market' => [
 			'path' => '/market/group/{group_guid}/{subpage}/{lower}/{upper}',
 			'resource' => 'market/group',
+			'requirements' => [
+				'lower' => '\d+',
+				'upper' => '\d+',
+			],
 		],
 		'image:object:market' => [
 			'path' => '/market/image/{guid}/{imagenum}/{size}/{tu}',

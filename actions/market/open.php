@@ -18,7 +18,7 @@ if (elgg_instanceof($post, 'object', 'market') && $post->canEdit()) {
 	$post->save();
 	
 	// Success message
-	system_message(elgg_echo("Item marked as open!"));
+	system_message(elgg_echo('market:action:open'));
 	
 		if (elgg_instanceof($container, 'group')) {
 			forward("market/group/$container->guid/all");

@@ -80,10 +80,10 @@ $entity_body .= "<div class='mbm mts'><span class='market_pricetag'><b>" . elgg_
 	if ($entity->owner_guid == elgg_get_logged_in_user_guid()) {
 		if($entity->status != "sold"){
 			$href = "action/market/sold?guid={$entity->guid}&__elgg_ts=".$elgg_ts."&__elgg_token=".$elgg_token;
-			$text = elgg_echo('Mark as Sold');
+			$text = elgg_echo('market:mark:sold');
 		} else {
 			$href = "action/market/open?guid={$entity->guid}&__elgg_ts=".$elgg_ts."&__elgg_token=".$elgg_token;
-			$text = elgg_echo('Open for '.$entity->market_type);
+			$text = elgg_echo('market:mark:open',[$entity->market_type]);
 		}
 			$entity_body .= elgg_view('output/url', array(
 				'class' => 'elgg-button elgg-button-action mtm',
