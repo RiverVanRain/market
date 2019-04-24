@@ -97,9 +97,9 @@ View the post here:
 	'market:tiny' => "tiny",
 		
 	//River
-	'river:object:market:create' => '%s posted a new ad in The Market %s',
-	'river:update:object:market' => '%s updated the ad %s in The Market',
-	'river:comment:object:market' => '%s commented on The Market ad %s',
+	'river:object:market:create' => '%s posted a new ad in the market %s',
+	'river:object:market:update' => '%s updated the ad %s in the market',
+	'river:object:market:comment' => '%s commented on the market ad %s',
 
 	// Status messages
 	'market:posted' => "Your Market post was successfully posted.",

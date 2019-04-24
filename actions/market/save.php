@@ -110,6 +110,13 @@ if (!$error) {
 					'subject_guid' => $user->guid,
 					'object_guid' => $post->guid,
 					));
+		} else {
+			elgg_create_river_item(array(
+					'view' => 'river/object/market/update',
+					'action_type' => 'update',
+					'subject_guid' => $user->guid,
+					'object_guid' => $post->guid,
+					));			
 		}
 
 		// Image 1 upload
