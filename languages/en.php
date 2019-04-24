@@ -195,5 +195,7 @@ This happens automatically when market post are older than %s month(s).",
 	 'market:mark:sold' => 'Mark as Sold',
 	 'market:mark:open' => 'Open for %s',
 	 
+	 'market:status:sold' => 'The Item has been marked as SOLD by the owner',
+	 
 );
 

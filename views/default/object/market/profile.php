@@ -7,8 +7,8 @@ if (!elgg_instanceof($entity, 'object', 'market')) {
 $currency = elgg_get_plugin_setting('market_currency', 'market');
 $tu = $entity->time_updated;
 
-if($entity->status == "sold"){ 
-	$entity_body .= "<blockquote><center><b>The Item has been marked as SOLD by the owner</b></center></blockquote>"; 
+if($entity->status == "sold"){
+	$entity_body .= elgg_view_message('notice', elgg_echo('market:status:sold'), ['title' => false]);
 }
 
 $entity_body .= '<div class="cart-profile-details">';
