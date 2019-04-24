@@ -88,8 +88,8 @@ View the post here:
 	'market:enablemarket' => "Enable group market",
 	
 	//Widget
-	'market:widget' => "My Market",
-	'market:widget:description' => "Showcase your posts on The Market",
+	'widgets:market:name' => "My Market",
+	'widgets:market:description' => "Showcase your posts on The Market",
 	'market:widget:viewall' => "View all my posts on The Market",
 	'market:num_display' => "Number of posts to display",
 	'market:icon_size' => "Icon size",
