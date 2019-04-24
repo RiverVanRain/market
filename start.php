@@ -47,9 +47,6 @@ function market_init() {
 	//JS
 	elgg_require_js('market');
 
-	//Widget
-	elgg_register_widget_type('market', elgg_echo('market:widget'), elgg_echo('market:widget:description'));
-
 	//Notifications
 	elgg_register_notification_event('object', 'market', array('create'));
 	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'market_notify_message');

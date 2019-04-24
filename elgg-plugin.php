@@ -54,4 +54,9 @@ return [
 			'resource' => 'market/terms',
 		],
 	],
+	'widgets' => [
+		'market' => [
+			'context' => ['profile', 'dashboard'],
+		],
+	],
 ];
