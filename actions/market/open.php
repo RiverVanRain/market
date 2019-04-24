@@ -23,7 +23,7 @@ if (elgg_instanceof($post, 'object', 'market') && $post->canEdit()) {
 		if (elgg_instanceof($container, 'group')) {
 			forward("market/group/$container->guid/all");
 		} else {
-			forward("market/view/$guid/$container->title");
+			forward("market/view/$guid/$post->title");
 		}
 } else {
 	register_error(elgg_echo('market:none:found'));
