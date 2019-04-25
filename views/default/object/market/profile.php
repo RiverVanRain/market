@@ -7,8 +7,8 @@ if (!elgg_instanceof($entity, 'object', 'market')) {
 $currency = elgg_get_plugin_setting('market_currency', 'market');
 $tu = $entity->time_updated;
 
-if($entity->status == "sold"){ 
-	$entity_body .= "<blockquote><center><b>The Item has been marked as SOLD by the owner</b></center></blockquote>"; 
+if($entity->status == "sold"){
+	$entity_body .= elgg_view_message('notice', elgg_echo('market:status:sold'), ['title' => false]);
 }
 
 $entity_body .= '<div class="cart-profile-details">';
@@ -65,10 +65,10 @@ $entity_body .= "<div class='mbm mts'><span class='market_pricetag'><b>" . elgg_
 	}
 
 	if (elgg_get_plugin_setting('market_pmbutton', 'market') == 'yes') {
-		if ($entity->owner_guid != elgg_get_logged_in_user_guid() && $entity->status != "sold") {
+		if ($entity->owner_guid != elgg_get_logged_in_user_guid() && $entity->status != "sold" && elgg_is_active_plugin('messages')) {
 			$entity_body .= elgg_view('output/url', array(
 							'class' => 'elgg-button elgg-button-action mtm',
-							'href' => "messages/compose?send_to={$entity->owner_guid}",
+							'href' => "messages/add?send_to={$entity->owner_guid}",
 							'text' => elgg_echo('market:pmbuttontext'),
 							));
 		}

@@ -37,6 +37,10 @@ return [
 			'path' => '/market/owned/{username}',
 			'resource' => 'market/owned',
 		],
+		'group:object:market:all' => [
+			'path' => '/market/group/{group_guid}/{subpage}',
+			'resource' => 'market/group',
+		],
 		'group:object:market' => [
 			'path' => '/market/group/{group_guid}/{subpage}/{lower}/{upper}',
 			'resource' => 'market/group',
@@ -52,6 +56,11 @@ return [
 		'terms:object:market' => [
 			'path' => '/market/terms',
 			'resource' => 'market/terms',
+		],
+	],
+	'widgets' => [
+		'market' => [
+			'context' => ['profile', 'dashboard'],
 		],
 	],
 ];
