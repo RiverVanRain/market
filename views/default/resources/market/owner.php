@@ -8,11 +8,12 @@
  * @link https://wzm.me
  * @version 3.0
  */
+$username = elgg_extract('username', $vars);
 
-$group_guid = elgg_extract('guid', $vars, elgg_extract('group_guid', $vars)); // group_guid for BC
-
-elgg_entity_gatekeeper($group_guid, 'group');
-$group = get_entity($group_guid);
+$user = get_user_by_username($username);
+if (!$user) {
+	throw new \Elgg\EntityNotFoundException();
+}
 
 $selected_type = elgg_extract('subpage', $vars);
 
@@ -20,16 +21,16 @@ $namevalue_pairs = [];
 $namevalue_pairs[] = ['name' => 'market_type', 'value' => $selected_type, 'operand' => '='];
 $namevalue_pairs[] = ['name' => 'status', 'value' => 'open', 'operand' => '='];
 
+elgg_push_collection_breadcrumbs('object', 'market', $user);
+
 elgg_register_title_button('market', 'add', 'object', 'market');
 
-elgg_push_collection_breadcrumbs('object', 'market', $group);
-
-$title = elgg_echo('market:collection:title', [$group->getDisplayName()]);
+$title = elgg_echo('collection:object:market:owner', [$user->getDisplayName()]);
 
 $options = [
 	'type' => 'object',
 	'subtype' => \ElggMarket::SUBTYPE,
-	'container_guid' => $group_guid,
+	'owner_guid' => (int) $user->guid,
 	'full_view' => false,
 	'pagination' => true,
 	'no_results' => elgg_echo('market:none:found'),
@@ -48,7 +49,7 @@ if (!$selected_type || $selected_type == 'all') {
 } 
 
 else {
-	elgg_push_breadcrumb(elgg_echo("market:type:{$selected_type}"), "market/group/{$group_guid}/{$selected_type}");
+	elgg_push_breadcrumb(elgg_echo("market:type:{$selected_type}"), "market/owner/{$username}/{$selected_type}");
 	$title .= ' - ' . elgg_echo("market:type:{$selected_type}");
 	$options['metadata_name_value_pairs'] = $namevalue_pairs;
 	$filter_context = $selected_type;
@@ -59,8 +60,8 @@ $content = elgg_list_entities($options);
 $layout = elgg_view_layout('content', [
 	'title' => $title,
 	'content' => $content,
-	'filter' => elgg_view('filters/market/group', [
-		'guid' => $group_guid,
+	'filter' => elgg_view('filters/market/owner', [
+		'username' => $username,
 		'filter_context' => $filter_context,
 	])
 ]);

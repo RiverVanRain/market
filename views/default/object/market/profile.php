@@ -1,96 +1,68 @@
 <?php
+/**
+ * Elgg Market Plugin
+ * @package market
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
+ * @author slyhne, RiverVanRain
+ * @copyright slyhne 2010-2015, wZm 2k17
+ * @link https://wzm.me
+ * @version 3.0
+ */
 $entity = elgg_extract('entity', $vars);
-if (!elgg_instanceof($entity, 'object', 'market')) {
+
+if (!$entity instanceof \ElggMarket) {
 	return;
 }
 
-$currency = elgg_get_plugin_setting('market_currency', 'market');
-$tu = $entity->time_updated;
+//summary
+echo elgg_view('object/market/meta', $vars);
 
-if($entity->status == "sold"){
-	$entity_body .= elgg_view_message('notice', elgg_echo('market:status:sold'), ['title' => false]);
+//images
+$attachments = $entity->formatAttachments();
+
+if ($attachments) {
+	echo elgg_format_element('div', ['class' => 'mtm'], $attachments);
 }
 
-$entity_body .= '<div class="cart-profile-details">';
-$entity_body .= elgg_view('object/market/meta', $vars);
-$entity_body .= '</div>';
-
-$entity_body .= "<div class='mbm mts'><span class='market_pricetag'><b>" . elgg_echo('market:price') . "</b> {$currency} {$entity->price}</span></div>";
-
-	$thumbnail = elgg_view('output/img', array(
-					'src' => "market/image/{$entity->guid}/1/large/{$tu}.jpg",
-					'class' => 'elgg-photo',
-					'alt' => $entity->guid,
-					));
-	$img = elgg_view('output/url', array(
-					'href' => "market/image/{$entity->guid}/1/master/{$tu}.jpg",
-					'text' => $thumbnail,
-					'class' => "elgg-lightbox-photo elgg-lightbox",
-					'rel' => 'market-gallery',
-					));
-
-	$obs_img = elgg_view('output/img', array(
-				'src' => "market/image/{$entity->guid}/1/large/{$tu}",
-				'class' => 'elgg-photo',
-				'alt' => $entity->guid,
-				));
-
-	$images = unserialize($entity->images);
-	if (is_array($images)) {
-		$entity_images = '';
-		foreach ($images as $key => $value) {
-			if ($value) {
-				$entity_img = elgg_view('output/img', array(
-								'src' => "market/image/{$entity->guid}/$key/small/{$tu}.jpg",
-								'class' => 'elgg-photo',
-								'alt' => $entity->guid,
-								));
-				$entity_images .= elgg_view('output/url', array(
-								'href' => "market/image/{$entity->guid}/$key/master/{$tu}.jpg",
-								'text' => $entity_img,
-								'class' => "elgg-lightbox-photo elgg-lightbox",
-								'rel' => 'market-gallery',
-								'data-colorboxOpts' => "{slideshow: true, rel: 'group'}",
-								));
-			}
-		}
+//buttons
+if ($entity->owner_guid == elgg_get_logged_in_user_guid() || $entity->canEdit()) {
+	if($entity->status != 'sold'){
+		$href = 'action/market/sold?guid=' . $entity->guid;
+		$text = elgg_echo('market:mark:sold');
 	}
-	if ($entity_images) {
-		$entity_body .= "<div>$entity_images</div>";
-	}
-	if (elgg_get_plugin_setting('market_allowhtml', 'market') != 'yes') {
-		$entity_body .= elgg_autop(parse_urls(strip_tags($entity->description)));
-	} else {
-		$entity_body .= elgg_view('output/longtext', array('value' => $entity->description));
-	}
-
-	if (elgg_get_plugin_setting('market_pmbutton', 'market') == 'yes') {
-		if ($entity->owner_guid != elgg_get_logged_in_user_guid() && $entity->status != "sold" && elgg_is_active_plugin('messages')) {
-			$entity_body .= elgg_view('output/url', array(
-							'class' => 'elgg-button elgg-button-action mtm',
-							'href' => "messages/add?send_to={$entity->owner_guid}",
-							'text' => elgg_echo('market:pmbuttontext'),
-							));
-		}
+	else {
+		$href = 'action/market/open?guid=' . $entity->guid;
+		$text = elgg_echo('market:mark:open', [$entity->market_type]);
 	}
 	
-	$elgg_ts = time();
-	$elgg_token = generate_action_token($elgg_ts);
-	
-	if ($entity->owner_guid == elgg_get_logged_in_user_guid()) {
-		if($entity->status != "sold"){
-			$href = "action/market/sold?guid={$entity->guid}&__elgg_ts=".$elgg_ts."&__elgg_token=".$elgg_token;
-			$text = elgg_echo('market:mark:sold');
-		} else {
-			$href = "action/market/open?guid={$entity->guid}&__elgg_ts=".$elgg_ts."&__elgg_token=".$elgg_token;
-			$text = elgg_echo('market:mark:open',[$entity->market_type]);
-		}
-			$entity_body .= elgg_view('output/url', array(
-				'class' => 'elgg-button elgg-button-action mtm',
-				'href' => $href,
-				'text' => $text,
-			));
-	}
+	$mark_status = elgg_view('output/url', [
+		'class' => 'elgg-button elgg-button-action mrs',
+		'href' => $href,
+		'text' => $text,
+		'is_action' => true,
+	]);
+}
 
-	echo elgg_view_image_block($img, $entity_body, array('class' => 'market-image-block'));
-	?>
+if (elgg_get_plugin_setting('market_pmbutton', 'market') == 1) {
+	if ($entity->owner_guid != elgg_get_logged_in_user_guid() && $entity->status != 'sold' && elgg_is_active_plugin('messages')) {
+		$send_message = elgg_view('output/url', [
+			'class' => 'elgg-button elgg-button-action',
+			'href' => "messages/add?send_to={$entity->owner_guid}",
+			'text' => elgg_echo('market:pmbuttontext'),
+		]);
+	}
+}
+
+echo elgg_format_element('div', ['class' => 'mtm'], $mark_status . $send_message);
+
+//description
+if (elgg_get_plugin_setting('market_allowhtml', 'market') == 0) {
+	$description = elgg_autop(parse_urls(strip_tags($entity->description)));
+}
+else {
+	$description = elgg_view('output/longtext', [
+		'value' => $entity->description
+	]);
+}
+
+echo elgg_format_element('div', ['class' => 'mtm'], $description);

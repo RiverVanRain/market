@@ -8,20 +8,16 @@
  * @link https://wzm.me
  * @version 3.0
  */
+$guid = elgg_extract('guid', $vars);
 $filter_context = elgg_extract('filter_context', $vars);
 
 $tabs = [
-	'all' => 'market/all',
-	'buy' => 'market/all/buy',
-	'sell' => 'market/all/sell',
-	'swap' => 'market/all/swap',
-	'free' => 'market/all/free',
+	'all' => "market/group/$guid/all",
+	'buy' => "market/group/$guid/buy", 
+	'sell' => "market/group/$guid/sell", 
+	'swap' => "market/group/$guid/swap", 
+	'free' => "market/group/$guid/free", 
 ];
-
-if (elgg_is_logged_in()) {
-	$user = elgg_get_logged_in_user_entity();
-	$tabs['mine'] = "market/owner/$user->username";
-}
 
 foreach ($tabs as $tab => $url) {
 	elgg_register_menu_item('filter', [

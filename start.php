@@ -3,37 +3,26 @@
  * Elgg Market Plugin
  * @package market
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain
- * @copyright slyhne 2010-2015, wZm 2k17
+ * @author slyhne, RiverVanRain, Rohit Gupta
+ * @copyright slyhne 2010-2015, wZm 2017
  * @link https://wzm.me
- * @version 2.2
+ * @version 3.0
  */
-require_once __DIR__ . '/autoloader.php';
-
-elgg_register_event_handler('init','system','market_init');
+use Market\Cron;
+use Market\Hooks;
+use Market\Menus;
+use Market\Notifications;
 
 function market_init() {
 
-	require_once __DIR__ . '/lib/market.php';
+	// Menus
+	elgg_register_plugin_hook_handler('register', 'menu:site', [Menus::class, 'marketSiteMenu']);
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', [Menus::class, 'marketOwnerBlock']);
 	
-	elgg_register_plugin_hook_handler('entity:url', 'object', 'market_entity_url_handler');
-	
-	elgg_register_entity_type('object', 'market');
-
-	elgg_register_menu_item('site', array(
-					'name' => elgg_echo('market:title'),
-					'text' => elgg_echo('market:title'),
-					'href' => 'market/all',
-					'icon' => 'credit-card',
-	));
-
-	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'market_owner_block_menu');
+    //Sidebar
 	if(elgg_in_context('market')){
 		elgg_extend_view('page/elements/sidebar', 'market/sidebar', 100);
 	}
-	
-	// Register for the entity menu
-	elgg_register_plugin_hook_handler('register', 'menu:entity', 'market_entity_menu_setup');
 	
 	//Groups
 	elgg()->group_tools->register('market', [
@@ -42,117 +31,25 @@ function market_init() {
 	]);
 
 	//CSS
-	elgg_extend_view('elgg.css', 'market/css');
+	elgg_extend_view('elgg.css', 'market/css.css');
 
 	//JS
 	elgg_require_js('market');
+	
+	//Hooks
+	elgg_register_event_handler('delete', 'object', [Hooks::class, 'deleteMarket']);
 
 	//Notifications
-	elgg_register_notification_event('object', 'market', array('create'));
-	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'market_notify_message');
+	elgg_register_notification_event('object', 'market', ['create']);
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:swap', [Notifications::class, 'createMarket']);
 
 	//Cron job
-	elgg_register_plugin_hook_handler('cron', 'daily', 'market_expire_cron_hook');
+	elgg_register_plugin_hook_handler('cron', 'daily', [Cron::class, 'marketCronDaily']);
 	
 	//Likes
 	elgg_register_plugin_hook_handler('likes:is_likable', 'object:market', 'Elgg\Values::getTrue');
 }
 
-function market_entity_url_handler($hook, $type, $return, $params) {
-	$entity = elgg_extract('entity', $params);
-	if (elgg_instanceof($entity, 'object', 'market')) {
-		$friendly = elgg_get_friendly_title($entity->title);
-		return elgg_normalize_url("market/view/$entity->guid/$friendly");
-	}
-}
-
-function market_owner_block_menu($hook, $type, $return, $params) {
-	if (elgg_instanceof($params['entity'], 'user')) {
-		$url = "market/owned/{$params['entity']->username}";
-		$item = new ElggMenuItem('market', elgg_echo('market'), $url);
-		$return[] = $item;
-	} else {
-		if ($params['entity']->market_enable != "no") {
-			$url = "market/group/{$params['entity']->guid}/all";
-			$item = new ElggMenuItem('market', elgg_echo('market:group'), $url);
-			$return[] = $item;
-		}
-	}
-	return $return;
-
-}
-
-function market_entity_menu_setup($hook, $type, $return, $params){
-	if (elgg_in_context('market')) {
-		$entity = $params['entity'];
-		$url = elgg_add_action_tokens_to_url(elgg_get_site_url()."action/market/delete?guid=".$entity->guid);
-		foreach ($return as $key => $item) {
-    	if ($item->getName() == 'delete') {
-      	// Set the new URL
-      	$item->setHref($url);
-        break;
-      }
-    }
-
-	}
-	return $return;
-}
-
-// Cron function to delete old market posts
-function market_expire_cron_hook($hook, $entity_type, $returnvalue, $params) {
-
-	$market_ttl = elgg_get_plugin_setting('market_expire','market');
-	if ($market_ttl == 0) {
-		return true;
-	}
-	$time_limit = strtotime("-$market_ttl months");
-
-	$ret = elgg_set_ignore_access(TRUE);
-	
-	$entities = elgg_get_entities(array(
-					'type' => 'object',
-					'subtype' => 'market',
-					'created_time_upper' => $time_limit,
-					));
-
-	foreach ($entities as $entity) {
-		$date = date('j/n-Y', $entity->time_created);
-		$title = $entity->title;
-		$owner = $entity->getOwnerEntity();
-		notify_user($owner->guid,
-				elgg_get_site_entity()->guid,
-				elgg_echo('market:expire:subject', array(), $owner->language),
-				elgg_echo('market:expire:body', array($owner->name, $title, $date, $market_ttl), $owner->language),
-				array(
-				'object' => $entity,
-				'action' => 'delete',
-			   ),
-				'site');
-		// Delete market post incl. pictures
-		market_delete_post($entity);
-	}
-	
-	$ret = elgg_set_ignore_access(FALSE);
-	
-}
-
-function market_notify_message($hook, $entity_type, $returnvalue, $params) {
-	$entity = $params['entity'];
-	$to_entity = $params['to_entity'];
-	$method = $params['method'];
-	if (elgg_instanceof($entity, 'object', 'market')) {
-		$description = elgg_get_excerpt($entity->description);
-		$title = $entity->title;
-		$owner = $entity->getOwnerEntity();
-		$market_type = elgg_echo("market:type:{$entity->market_type}");
-
-		return elgg_echo('market:notification', array(
-			$owner->name,
-			$market_type,
-			$title,
-			$description,
-			$entity->getURL()
-		));
-	}
-	return null;
-}
+return function() {
+	elgg_register_event_handler('init', 'system', 'market_init');
+};

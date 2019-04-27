@@ -4,17 +4,23 @@
 	<id>market</id>
 	<version>3.0</version>
 
-	<description>Make a market place where your users can create classifieds</description>
+	<description>Make a marketplace where your users can create classifieds</description>
 	<category>commerce</category>
 
 	<author>slyhne, RiverVanRain, Rohit Gupta</author>
 	<website>https://wzm.me</website>
-	<copyright>(c) slyhne 2010-2015, wZm 2k17</copyright>
+	<copyright>(c) slyhne 2010-2015, wZm 2017</copyright>
 	<license>GNU General Public License version 2</license>
 
 	<requires>
 		<type>elgg_release</type>
 		<version>3.0</version>
+	</requires>
+	
+	<requires>
+		<type>plugin</type>
+		<name>hypeDropzone</name>
+		<version>6.0</version>
 	</requires>
 </plugin_manifest>
 

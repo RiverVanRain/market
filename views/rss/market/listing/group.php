@@ -9,8 +9,11 @@
  * @version 3.0
  */
 
-$object = $vars['item']->getObjectEntity();
+$entity = elgg_extract('entity', $vars);
 
-$vars['message'] = elgg_view('object/market/meta', ['entity' => $object]);
+$vars['options'] = [
+	'container_guids' => (int) $entity->guid,
+	'preload_containers' => false,
+];
 
-echo elgg_view('river/elements/layout', $vars);
+echo elgg_view('market/listing/all', $vars);

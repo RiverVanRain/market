@@ -1,57 +1,77 @@
 <?php
+/**
+ * Elgg Market Plugin
+ * @package market
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
+ * @author slyhne, RiverVanRain, Rohit Gupta
+ * @copyright slyhne 2010-2015, wZm 2017
+ * @link https://wzm.me
+ * @version 3.0
+ */
+require_once(__DIR__ . '/lib/functions.php');
 
 return [
+	'entities' => [
+		[
+			'type' => 'object',
+			'subtype' => 'market',
+			'class' => 'ElggMarket',
+			'searchable' => true,
+		],
+	],
 	'actions' => [
 		'market/sold' => [],
 		'market/open' => [],
 		'market/save' => [],
-		'market/delete' => [],
-		'market/delete_img' => [],
 	],
 	'routes' => [
-		'all:object:market' => [
-			'path' => '/market/all',
+		'default:object:market' => [
+			'path' => '/market',
 			'resource' => 'market/all',
 		],
-		'typeall:object:market' => [
-			'path' => '/market/all/{type}',
+		'collection:object:market:all' => [
+			'path' => '/market/all/{subpage?}',
 			'resource' => 'market/all',
+		],
+		'view:object:market' => [
+			'path' => '/market/view/{guid}/{title?}',
+			'resource' => 'market/view',
+		],
+		'collection:object:market:owner' => [
+			'path' => '/market/owner/{username}/{subpage?}',
+			'resource' => 'market/owner',
+			'defaults' => [
+				'subpage' => 'all',
+			],
+		],
+		'collection:object:market:friends' => [
+			'path' => '/market/friends/{username?}',
+			'resource' => 'market/friends',
+		],
+		'collection:object:market:group' => [
+			'path' => '/market/group/{guid}/{subpage?}',
+			'resource' => 'market/group',
+			'defaults' => [
+				'subpage' => 'all',
+			],
 		],
 		'category:object:market' => [
-			'path' => '/market/category/{cat}',
+			'path' => '/market/category/{category}',
 			'resource' => 'market/category',
 		],
 		'add:object:market' => [
-			'path' => '/market/add/{container_guid}',
+			'path' => '/market/add/{guid}',
 			'resource' => 'market/add',
+			'middleware' => [
+				\Elgg\Router\Middleware\Gatekeeper::class,
+			],
 		],
 		'edit:object:market' => [
 			'path' => '/market/edit/{guid}',
 			'resource' => 'market/edit',
-		],
-		'view:object:market' => [
-			'path' => '/market/view/{guid}/{title}',
-			'resource' => 'market/view',
-		],
-		'owned:object:market' => [
-			'path' => '/market/owned/{username}',
-			'resource' => 'market/owned',
-		],
-		'group:object:market:all' => [
-			'path' => '/market/group/{group_guid}/{subpage}',
-			'resource' => 'market/group',
-		],
-		'group:object:market' => [
-			'path' => '/market/group/{group_guid}/{subpage}/{lower}/{upper}',
-			'resource' => 'market/group',
-			'requirements' => [
-				'lower' => '\d+',
-				'upper' => '\d+',
+			'middleware' => [
+				\Elgg\Router\Middleware\Gatekeeper::class,
 			],
-		],
-		'image:object:market' => [
-			'path' => '/market/image/{guid}/{imagenum}/{size}/{tu}',
-			'resource' => 'market/image',
 		],
 		'terms:object:market' => [
 			'path' => '/market/terms',
