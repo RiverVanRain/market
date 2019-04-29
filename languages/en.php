@@ -98,6 +98,7 @@ View the Market ad here: %s
 	'market:deleted' => "Your Market ad was successfully deleted.",
 	'market:uploaded' => "Your image was succesfully added.",
 	'market:image:deleted' => "Your image was succesfully deleted.",
+	'market:image:invalid' => "Not a valid market image file.",
 	'market:status:sold' => 'The item has been marked as sold by the owner',
 
 	// Error messages	

@@ -174,6 +174,49 @@ echo elgg_view_field([
 	'container_guid' => elgg_get_logged_in_user_guid(),
 ]);
 
+// Option to delete uploded image
+$options = [
+	'relationship' => 'attached',
+	'relationship_guid' => $entity->guid,
+	'inverse_relationship' => true,
+	'metadata_name_value_pairs' => [
+		'name' => 'simpletype', 'value' => 'image',
+	],
+	'limit' => 0,
+];
+$images = elgg_get_entities($options);
+if(count((array)$images) > 0){
+	echo '<div class="elgg-dropzone-preview dz-processing dz-image-preview dz-success dz-complete elgg-dropzone-success">'; 
+	foreach ($images as $image) {
+		$image_params = [
+			'alt' => $image->getDisplayName(),
+			'src' => $image->getIconURL(['size' => 'tiny']),
+			'class' => 'elgg-photo',
+		];
+		$icon = elgg_view('output/img', $image_params);
+		$icon_view = elgg_view('output/url', [
+			'text' => $icon,
+			'href' => $image->getIconURL('large'),
+			'class' => 'elgg-lightbox-photo',
+			'rel' => 'market-gallery',
+		]);
+		
+		$del_href = elgg_generate_action_url('market/del_img',['guid' => $image->guid]);
+		
+		echo 
+		'	<div class="elgg-dropzone-item-props">
+				<div class="elgg-dropzone-thumbnail">'.$icon_view.'</div>
+				<div class="elgg-dropzone-filename">
+					<span class="elgg-dropzone-filename-str" data-dz-name="">'.$image->getDisplayName().'</span>
+				</div>
+				<div class="elgg-dropzone-controls">
+					<a href="'.$del_href.'" class="elgg-dropzone-remove-icon" title="Remove" data-dz-remove=""><span class="elgg-icon elgg-icon-trash far fa-trash-alt"></span></a>
+				</div>
+			</div>';
+	}
+	echo '</div>';
+}
+
 //access level
 echo elgg_view_field([
 	'#label' => elgg_echo('access'),

@@ -23,6 +23,7 @@ return [
 		'market/sold' => [],
 		'market/open' => [],
 		'market/save' => [],
+		'market/del_img' => [],
 	],
 	'routes' => [
 		'default:object:market' => [
