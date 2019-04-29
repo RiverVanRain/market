@@ -24,6 +24,7 @@ return [
 		'market/open' => [],
 		'market/save' => [],
 		'market/del_img' => [],
+		'market/change_cover' => [],
 	],
 	'routes' => [
 		'default:object:market' => [

@@ -31,6 +31,7 @@ return [
 	'market:everyone' => "All ads",
 	'item:object:market' => 'Market ad',
 	'market:none:found' => 'No market ad found',
+	'market:cover:update:text' => 'Update Cover',
 	
 	'add:object:market' => "Create new ad",
 	'market:read' => "View ad",
@@ -46,6 +47,7 @@ return [
 	'market:action:sold' => "Item marked as sold",
 	
 	'market:icon:upload:new' => "Add cover icon to your ad",
+	'market:icon:upload:update' => "Cover icon updated for your ad",
 	'market:icon:upload:edit' => "Edit cover icon of your ad",
 	'market:uploadimages' => "Add images to your ad.",
 	

@@ -202,7 +202,7 @@ if(count((array)$images) > 0){
 		]);
 		
 		$del_href = elgg_generate_action_url('market/del_img',['guid' => $image->guid]);
-		
+		$update_cover = elgg_generate_action_url('market/change_cover',['guid' => $image->guid]);
 		echo 
 		'	<div class="elgg-dropzone-item-props">
 				<div class="elgg-dropzone-thumbnail">'.$icon_view.'</div>
@@ -211,6 +211,7 @@ if(count((array)$images) > 0){
 				</div>
 				<div class="elgg-dropzone-controls">
 					<a href="'.$del_href.'" class="elgg-dropzone-remove-icon" title="Remove" data-dz-remove=""><span class="elgg-icon elgg-icon-trash far fa-trash-alt"></span></a>
+					<a href="'.$update_cover.'" class="elgg-dropzone-remove-icon" title="Update Cover" data-dz-remove=""><span class="elgg-icon elgg-icon-file far fa-file-image-o"></a>
 				</div>
 			</div>';
 	}
