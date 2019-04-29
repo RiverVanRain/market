@@ -95,9 +95,11 @@ if (!$post->save()) {
 }
 
 // handle icon upload
-$post->saveIconFromUploadedFile('icon');
-
 $upload_guids = (array) get_input('upload_guids', []);
+if($post->cover_img == null){
+	$post->cover_img = $upload_guids[0];
+}
+
 if ($upload_guids) {
 	foreach ($upload_guids as $upload_guid) {
 		$upload = get_entity($upload_guid);

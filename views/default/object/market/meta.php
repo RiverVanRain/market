@@ -15,15 +15,20 @@ if (!$entity instanceof \ElggMarket) {
 }
 
 //cover icon
+if($entity->cover_img == null){
+	$cov_img = $entity;
+} else {
+	$cov_img = get_entity($entity->cover_img);
+}
 $image_params = [
 	'alt' => $entity->getDisplayName(),
-	'src' => $entity->getIconURL(['size' => 'medium']),
+	'src' => $cov_img->getIconURL(['size' => 'medium']),
 ];
 
 $image = elgg_view('output/img', $image_params);
 $cover_icon = elgg_view('output/url', [
 	'text' => $image,
-	'href' => $entity->getIconURL(['size' => 'large']),
+	'href' => $cov_img->getIconURL(['size' => 'large']),
 	'class' => 'elgg-lightbox-photo',
 ]);
 

@@ -161,29 +161,6 @@ if (elgg_get_plugin_setting('market_comments', 'market') == 1) {
 	]);
 }
 
-//cover
-$icon_input = '';
-if ($post) {
-	$icon_label = elgg_echo('market:icon:upload:edit');
-	
-	if ($post->icontime) {
-		$icon_input = elgg_format_element('p', [], elgg_view('output/img', [
-			'src' => $post->getIconURL(),
-		]));
-	}
-} else {
-	$icon_label = elgg_echo('market:icon:upload:new');
-}
-
-echo elgg_view_field([
-	'#label' => $icon_label,
-	'#type' => 'file',
-	'name' => 'icon',
-	'id' => 'market_icon',
-	'accept' => 'image/*',
-	'#help' => $icon_input,
-]);
-
 //attached images
 echo elgg_view_field([
 	'#label' => elgg_echo('market:upload'),
