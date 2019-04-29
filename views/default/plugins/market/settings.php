@@ -101,6 +101,27 @@ echo elgg_view_field([
 	],
 ]);
 
+//Image View Type
+$image_size = [
+  'tiny' => 'Tiny',
+  'small' => 'Small',
+  'medium' => 'Medium',
+  'large' => 'Large',
+  'master' => 'Master',
+];
+echo elgg_view_field([
+	'#type' => 'fieldset',
+	'legend' => elgg_echo('settings:market:image_size'),
+	'fields' => [
+		[
+			'#type' => 'select',
+			'name' => 'params[image_size]',
+			'value' => $entity->image_size,
+			'options_values' => $image_size,
+		],
+	],
+]);
+
 //Custom field
 echo elgg_view_field([
 	'#type' => 'fieldset',
