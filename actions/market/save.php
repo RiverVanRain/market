@@ -105,7 +105,7 @@ if ($upload_guids) {
 			continue;
 		}
 		$upload->origin = 'market';
-		$upload->container_guid = $user->guid;
+		$upload->container_guid = $post->container_guid;
 		$upload->access_id = $post->access_id;
 		if ($upload->save()) {
 			$uploads[] = $upload;

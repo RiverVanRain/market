@@ -39,7 +39,7 @@ return [
 	'market:add' => "Create new ad",
 	'market:add:title' => "Create a new ad on The Market",
 	'market:edit' => "Edit Ad",
-	'market:upload' => "Upload images",
+	'market:upload' => "Upload images to show in the ad",
 	'market:text' => "Give a brief description about the item",
 	'market:strapline' => "Created",
 	'market:action:open' => "Item marked as open",

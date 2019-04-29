@@ -103,11 +103,11 @@ echo elgg_view_field([
 
 //Image View Type
 $image_size = [
-  'tiny' => elgg_echo('settings:market:image_size:tiny'),
-  'small' => elgg_echo('settings:market:image_size:small'),
-  'medium' => elgg_echo('settings:market:image_size:medium'),
-  'large' => elgg_echo('settings:market:image_size:large'),
-  'master' => elgg_echo('settings:market:image_size:master'),
+	'tiny' => elgg_echo('settings:market:image_size:tiny'),
+	'small' => elgg_echo('settings:market:image_size:small'),
+	'medium' => elgg_echo('settings:market:image_size:medium'),
+	'large' => elgg_echo('settings:market:image_size:large'),
+	'master' => elgg_echo('settings:market:image_size:master'),
 ];
 echo elgg_view_field([
 	'#type' => 'fieldset',
@@ -116,7 +116,7 @@ echo elgg_view_field([
 		[
 			'#type' => 'select',
 			'name' => 'params[image_size]',
-			'value' => $entity->image_size,
+			'value' => $entity->image_size ? $entity->image_size : 'medium',
 			'options_values' => $image_size,
 		],
 	],

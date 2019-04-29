@@ -180,6 +180,7 @@ echo elgg_view_field([
 	'#type' => 'file',
 	'name' => 'icon',
 	'id' => 'market_icon',
+	'enable_dropzone' => false,
 	'accept' => 'image/*',
 	'#help' => $icon_input,
 ]);
@@ -196,6 +197,49 @@ echo elgg_view_field([
 	'subtype' => 'file',
 	'container_guid' => elgg_get_logged_in_user_guid(),
 ]);
+
+// Option to delete uploded image
+if($post instanceof \ElggMarket){
+	$options = [
+		'relationship' => 'attached',
+		'relationship_guid' => $post->guid,
+		'inverse_relationship' => true,
+		'metadata_name_value_pairs' => [
+			'name' => 'simpletype', 'value' => 'image',
+		],
+		'limit' => 0,
+	];
+	$images = elgg_get_entities($options);
+	if(count((array)$images) > 0){
+		echo '<div class="elgg-dropzone-preview dz-processing dz-image-preview dz-success dz-complete elgg-dropzone-success">'; 
+		foreach ($images as $image) {
+			$image_params = [
+				'alt' => $image->getDisplayName(),
+				'src' => $image->getIconURL(['size' => 'tiny']),
+				'class' => 'elgg-photo',
+			];
+			$icon = elgg_view('output/img', $image_params);
+			
+			$delete_action = elgg_generate_action_url('entity/delete',['guid' => $image->guid]);
+			
+			$thumbnail = elgg_format_element('div', ['class' => 'elgg-dropzone-thumbnail'], $icon);
+			
+			$file_name = elgg_format_element('span', ['class' => 'elgg-dropzone-filename-str'], $image->getDisplayName());
+			$filename = elgg_format_element('div', ['class' => 'elgg-dropzone-filename'], $file_name);
+			
+			$remove_icon = elgg_format_element('span', ['class' => 'elgg-icon elgg-icon-trash far fa-trash-alt']);
+			$controls = elgg_format_element('div', ['class' => 'elgg-dropzone-controls'], elgg_view('output/url', [
+				'href' => $delete_action,
+				'text' => $remove_icon,
+				'class' => 'elgg-dropzone-remove-icon',
+				'title' => elgg_echo('remove'),
+			]));
+			
+			echo elgg_format_element('div', ['class' => 'elgg-dropzone-item-props'], $thumbnail . $filename . $controls);
+		}
+		echo '</div>';
+	}
+}
 
 //access level
 echo elgg_view_field([

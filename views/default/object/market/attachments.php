@@ -30,7 +30,9 @@ if ($count) {
 	$images = elgg_get_entities($options);
 
 	echo '<ul class="market-attachments" rel="market-popup-'.$entity->guid.'">';
-	$image_size = elgg_get_plugin_setting('image_size', 'market', 'large');
+	
+	$image_size = elgg_get_plugin_setting('image_size', 'market');
+	
 	foreach ($images as $image) {
 		$image_guids[] = $image->guid;
 		echo '<li class="elgg-item">';

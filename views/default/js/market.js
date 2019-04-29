@@ -38,6 +38,22 @@ define(['elgg', 'jquery', 'elgg/lightbox'], function (elgg, $, lightbox) {
 			}
 		});
 		
+		$('.elgg-dropzone-remove-icon').on('click', function(event) {
+			var $item = $(this).closest('.elgg-dropzone-item-props');
+			$item.slideToggle('medium');
+			elgg.action($(this).attr('href'), {
+				success: function(json) {
+					if (json.system_messages.error.length) {
+						$item.slideToggle('medium');
+					}
+				},
+				error: function() {
+					$item.slideToggle('medium');
+				}
+			});
+			event.preventDefault();
+		});
+		
 		var options = {
 			photo: true,
 		};

@@ -44,5 +44,26 @@ class Hooks {
 			$file->delete();
 		}
 	}
-
+	
+	public static function deleteImage($event, $type, \ElggObject $entity) {
+		if (!$entity instanceof \ElggFile) {
+			return;
+		}
+		
+		if (!$entity->guid) {
+			return;
+		}
+		
+		if (!$entity->canEdit()) {
+			return;
+		}
+		
+		$container = get_entity($entity->container_guid);
+		if (!$container instanceof \ElggUser || !$container instanceof \ElggGroup) {
+			return;
+		}
+		
+		remove_entity_relationship($entity->guid, 'attached', $container->guid);
+	}
+	
 }
