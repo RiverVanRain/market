@@ -103,11 +103,11 @@ echo elgg_view_field([
 
 //Image View Type
 $image_size = [
-  'tiny' => 'Tiny',
-  'small' => 'Small',
-  'medium' => 'Medium',
-  'large' => 'Large',
-  'master' => 'Master',
+  'tiny' => elgg_echo('settings:market:image_size:tiny'),
+  'small' => elgg_echo('settings:market:image_size:small'),
+  'medium' => elgg_echo('settings:market:image_size:medium'),
+  'large' => elgg_echo('settings:market:image_size:large'),
+  'master' => elgg_echo('settings:market:image_size:master'),
 ];
 echo elgg_view_field([
 	'#type' => 'fieldset',

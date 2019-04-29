@@ -130,6 +130,11 @@ View the Market ad here: %s
 	'settings:market:categories' => 'Market categories',
 	'settings:market:categories:help' => 'Separate categories with commas',
 	'settings:market:image_size' => 'Select image size to show in the ads',
+	'settings:market:image_size:tiny' => 'Tiny (25px)',
+	'settings:market:image_size:small' => 'Small (60px)',
+	'settings:market:image_size:medium' => 'Medium (153px)',
+	'settings:market:image_size:large' => 'Large (600px)',
+	'settings:market:image_size:master' => 'Original image',
 	
 	'settings:market:settings:type' => 'Enable market ad types (buy/sell/swap/free)',	
 	'market:type:all' => "All ads",
