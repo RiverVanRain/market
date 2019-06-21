@@ -4,7 +4,7 @@
  * @package market
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author slyhne, RiverVanRain
- * @copyright slyhne 2010-2015, wZm 2k17
+ * @copyright slyhne 2010-2015, wZm 2017
  * @link https://wzm.me
  * @version 3.0
  */
