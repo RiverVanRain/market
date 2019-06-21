@@ -8,8 +8,11 @@
  * @link https://wzm.me
  * @version 3.0
  */
- 
-echo elgg_view_module('info', elgg_echo('market:categories'), elgg_view('market/categories'));
+$categories = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
+
+if (!empty($categories)) {
+	echo elgg_view_module('info', elgg_echo('market:categories'), elgg_view('market/categories'));
+}
 
 echo elgg_view('page/elements/comments_block', [
 	'subtypes' => \ElggMarket::SUBTYPE,

@@ -12,22 +12,20 @@ $selected_category = get_input('category');
 
 $categories = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
 
-if (empty($categories)) {
-	echo elgg_echo('market:none:found');
-}
-
-echo '<ul class="elgg-menu elgg-menu-page market-category-menu">';
-	
+$ul = '';
+$li = '';
 foreach ($categories as $category) {
 	$class = '';
 	if ($selected_category == urlencode($category) || $selected_category == $category) {
 		$class = 'selected';
 	}
-	echo elgg_format_element('li', [], elgg_view('output/url', [
+	$li .= elgg_format_element('li', [], elgg_view('output/url', [
 		'href' => 'market/category/' . urlencode($category),
 		'text' => $category,
 		'class' => $class,
 	]));
 }
 
-echo '</ul>';
+$ul = elgg_format_element('ul', ['class' => 'elgg-menu elgg-menu-page market-category-menu'], $li);
+
+echo $ul;
