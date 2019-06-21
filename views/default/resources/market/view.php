@@ -38,10 +38,6 @@ $content = elgg_view_entity($entity, [
 	'full_view' => true,
 ]);
 
-if ($entity->comments_on == 'On') {
-	$content .= elgg_view_comments($entity);
-}
-
 $layout = elgg_view_layout('content', [
 	'title' => $title,
 	'content' => $content,
