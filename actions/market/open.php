@@ -16,6 +16,13 @@ if ($guid) {
 		$entity->status = 'open';
 		$entity->save();
 		
+		elgg_create_river_item([
+			'view' => 'river/object/market/update',
+			'action_type' => 'open',
+			'subject_guid' => elgg_get_logged_in_user_guid(),
+			'object_guid' => $guid,
+		]);
+		
 		return elgg_ok_response('', elgg_echo('market:action:open'));
 	} 
 	

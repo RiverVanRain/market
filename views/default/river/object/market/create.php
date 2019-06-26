@@ -8,8 +8,15 @@
  * @link https://wzm.me
  * @version 3.0
 */
+$item = elgg_extract('item', $vars);
+if (!$item instanceof ElggRiverItem) {
+	return;
+}
 
-$object = $vars['item']->getObjectEntity();
+$object = $item->getObjectEntity();
+if (!$object instanceof \ElggMarket) {
+	return;
+}
 
 $vars['message'] = elgg_view('object/market/meta', ['entity' => $object]);
 

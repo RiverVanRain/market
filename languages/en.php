@@ -92,6 +92,8 @@ View the Market ad here: %s
 	'river:object:market:create' => '%s posted a new ad in the market %s',
 	'river:object:market:update' => '%s updated the ad %s in the market',
 	'river:object:market:comment' => '%s commented on the market ad %s',
+	'river:object:market:open' => '%s opened the ad %s for sell in the market',
+	'river:object:market:sold' => '%s marked the ad %s as sold in the market',
 
 	// Status messages
 	'market:posted' => "Your Market ad was successfully posted.",
