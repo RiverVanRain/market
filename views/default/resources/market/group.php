@@ -1,15 +1,16 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
+if (!(bool) elgg_get_plugin_setting('enable_groups', 'market')) {
+	throw new \Elgg\Exceptions\Http\PageNotFoundException();
+}
 
-$group_guid = elgg_extract('guid', $vars, elgg_extract('group_guid', $vars)); // group_guid for BC
+$group_guid = (int) elgg_extract('guid', $vars, elgg_extract('group_guid', $vars)); // group_guid for BC
 
 elgg_entity_gatekeeper($group_guid, 'group');
 $group = get_entity($group_guid);
@@ -45,9 +46,7 @@ $options = [
 // Get a list of market posts in a specific category
 if (!$selected_type || $selected_type == 'all') {
 	$filter_context = 'all';
-} 
-
-else {
+} else {
 	elgg_push_breadcrumb(elgg_echo("market:type:{$selected_type}"), "market/group/{$group_guid}/{$selected_type}");
 	$title .= ' - ' . elgg_echo("market:type:{$selected_type}");
 	$options['metadata_name_value_pairs'] = $namevalue_pairs;
@@ -56,13 +55,9 @@ else {
 
 $content = elgg_list_entities($options);
 
-$layout = elgg_view_layout('content', [
-	'title' => $title,
+echo elgg_view_page($title, [
 	'content' => $content,
-	'filter' => elgg_view('filters/market/group', [
-		'guid' => $group_guid,
-		'filter_context' => $filter_context,
-	])
+	'filter_id' => 'market/group',
+	'filter_value' => $filter_context,
+	'filter_entity' => $group,
 ]);
-
-echo elgg_view_page($title, $layout);

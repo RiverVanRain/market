@@ -1,9 +1,9 @@
-Market plugin for Elgg
+Market
 ===============================
-![Elgg 3.0](https://img.shields.io/badge/Elgg-3.0-green.svg)
+![Elgg 4.2](https://img.shields.io/badge/Elgg-4.2-green.svg?style=flat-square)
 
 Elgg marketplace for creating classifieds
 
-## Requirements
+## Features
 
-* hypeDropzone by Ismayil Khayredinov and ColdTrick fork (https://github.com/RiverVanRain/hypeDropzone) for Elgg 3.0
+* Make a marketplace where your users can create classifieds

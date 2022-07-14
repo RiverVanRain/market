@@ -1,12 +1,10 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
 // start a new sticky form session in case of failure
 elgg_make_sticky_form('market');
@@ -23,9 +21,7 @@ if ($guid) {
 	} else {
 		return elgg_error_response(elgg_echo('market:error:post_not_found'));
 	}
-}
-
-else {
+} else {
 	$post = new \ElggMarket();
 	$new_post = true;
 }
@@ -101,7 +97,7 @@ $upload_guids = (array) get_input('upload_guids', []);
 if ($upload_guids) {
 	foreach ($upload_guids as $upload_guid) {
 		$upload = get_entity($upload_guid);
-		if (!$upload instanceof ElggFile || !$upload->canEdit()) {
+		if (!$upload instanceof \ElggFile || !$upload->canEdit()) {
 			continue;
 		}
 		$upload->origin = 'market';

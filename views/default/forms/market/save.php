@@ -1,18 +1,15 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
 $post = get_entity($vars['guid']);
 $vars['entity'] = $post;
 
 // Get plugin settings
-$allowhtml = elgg_get_plugin_setting('market_allowhtml', 'market');
 $currency = elgg_get_plugin_setting('market_currency', 'market');
 $numchars = elgg_get_plugin_setting('market_numchars', 'market');
 $marketcategories = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
@@ -27,7 +24,6 @@ echo elgg_view_field([
 	'autofocus' => true,
 	'value' => elgg_extract('title', $vars),
 ]);
-
 	
 //categories
 if (!empty($marketcategories)) {
@@ -63,10 +59,11 @@ echo elgg_view_field([
 	'id' => 'market-type',
 	'value' => elgg_extract('market_type', $vars),
 	'options_values' => $options,
+	'required' => true,
 ]);
 
 //custom choices
-if (elgg_get_plugin_setting('market_custom', 'market') == 1 && !empty($custom_choices)) {
+if ((bool) elgg_get_plugin_setting('market_custom', 'market') && !empty($custom_choices)) {
 	$custom_options = [];
 	$custom_options[''] = elgg_echo('market:choose');
 	foreach ($custom_choices as $custom_choice) {
@@ -83,7 +80,7 @@ if (elgg_get_plugin_setting('market_custom', 'market') == 1 && !empty($custom_ch
 }
 
 //location
-if (elgg_get_plugin_setting('location', 'market') == 1) {
+if ((bool) elgg_get_plugin_setting('location', 'market')) {
 	echo elgg_view_field([
 		'#label' => elgg_echo('market:location'),
 		'#type' => 'location',
@@ -94,7 +91,7 @@ if (elgg_get_plugin_setting('location', 'market') == 1) {
 }
 
 //description
-if ($allowhtml == 0) {
+if (!(bool) elgg_get_plugin_setting('market_allowhtml', 'market')) {
 	$data_limit = $numchars;
 	
 	$indicator = elgg_format_element('span', ['data-counter-indicator' => true, 'class' => 'market_charleft'], $numchars);
@@ -115,9 +112,7 @@ if ($allowhtml == 0) {
 		'value' => elgg_extract('description', $vars),
 		'#help' => $counter,
 	]);
-}
-
-else {
+} else {
 	echo elgg_view_field([
 		'#label' => elgg_echo('market:text'),
 		'#type' => 'longtext',
@@ -148,7 +143,7 @@ echo elgg_view_field([
 ]);
 
 //comments
-if (elgg_get_plugin_setting('market_comments', 'market') == 1) {
+if ((bool) elgg_get_plugin_setting('market_comments', 'market')) {
 	echo elgg_view_field([
 		'#label' => elgg_echo('comments'),
 		'#type' => 'select',
@@ -167,7 +162,7 @@ if ($post) {
 	$icon_label = elgg_echo('market:icon:upload:edit');
 	
 	if ($post->icontime) {
-		$icon_input = elgg_format_element('p', [], elgg_view('output/img', [
+		$icon_input = elgg_format_element('div', [], elgg_view('output/img', [
 			'src' => $post->getIconURL(),
 		]));
 	}
@@ -215,23 +210,23 @@ if($post instanceof \ElggMarket){
 		foreach ($images as $image) {
 			$image_params = [
 				'alt' => $image->getDisplayName(),
-				'src' => $image->getIconURL(['size' => 'tiny']),
+				'src' => $image->getIconURL(['size' => 'small']),
 				'class' => 'elgg-photo',
 			];
 			$icon = elgg_view('output/img', $image_params);
-			
-			$delete_action = elgg_generate_action_url('entity/delete',['guid' => $image->guid]);
 			
 			$thumbnail = elgg_format_element('div', ['class' => 'elgg-dropzone-thumbnail'], $icon);
 			
 			$file_name = elgg_format_element('span', ['class' => 'elgg-dropzone-filename-str'], $image->getDisplayName());
 			$filename = elgg_format_element('div', ['class' => 'elgg-dropzone-filename'], $file_name);
-			
+				
 			$remove_icon = elgg_format_element('span', ['class' => 'elgg-icon elgg-icon-trash far fa-trash-alt']);
 			$controls = elgg_format_element('div', ['class' => 'elgg-dropzone-controls'], elgg_view('output/url', [
-				'href' => $delete_action,
+				'href' => elgg_generate_action_url('entity/delete', [
+					'guid' => $image->guid,
+				]),
 				'text' => $remove_icon,
-				'class' => 'elgg-dropzone-remove-icon',
+				'class' => 'elgg-dropzone-remove-icon noajax',
 				'title' => elgg_echo('remove'),
 			]));
 			
@@ -253,18 +248,24 @@ echo elgg_view_field([
 ]);
 
 //terms
-if (elgg_get_plugin_setting('market_terms_enable', 'market') == 1) {
+if ((bool) elgg_get_plugin_setting('market_terms_enable', 'market')) {
 	$termslink = elgg_view('output/url', [
 		'href' => 'market/terms',
 		'text' => elgg_echo('market:terms:title'),
 		'class' => 'elgg-lightbox',
-		'data-colorbox-opts' => json_encode(['height' => '95%','width' => '1000px']),
+		'data-colorbox-opts' => json_encode([
+			'width' => '1000px',
+			'height' => '98%',
+			'maxWidth' => '98%',
+		]),
+		'deps' => ['elgg/lightbox'],
 	]);
 
 	echo elgg_view_field([
 		'#label' => elgg_echo('market:accept:terms', [$termslink]),
 		'#type' => 'checkbox',
 		'name' => 'accept_terms',
+		'required' => true,
 	]);
 }
 

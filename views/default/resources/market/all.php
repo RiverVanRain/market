@@ -1,12 +1,10 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
 $selected_type = elgg_extract('subpage', $vars);
 
@@ -37,9 +35,7 @@ $options = [
 if (!$selected_type || $selected_type == 'all') {
 	$title = elgg_echo('market:type:all');
 	$filter_context = 'all';
-} 
-
-else {
+} else {
 	elgg_push_breadcrumb(elgg_echo("market:type:{$selected_type}"), "market/all/{$selected_type}");
 	$title = elgg_echo("market:type:{$selected_type}");
 	$options['metadata_name_value_pairs'] = $namevalue_pairs;
@@ -48,12 +44,8 @@ else {
 
 $content = elgg_list_entities($options);
 
-$layout = elgg_view_layout('content', [
-	'title' => $title,
+echo elgg_view_page($title, [
 	'content' => $content,
-	'filter' => elgg_view('filters/market/all', [
-		'filter_context' => $filter_context,
-	])
+	'filter_id' => 'market/all',
+	'filter_value' => $filter_context,
 ]);
-
-echo elgg_view_page($title, $layout);

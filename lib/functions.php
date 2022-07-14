@@ -1,31 +1,29 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
  
 function market_prepare_form_vars($post = null) {
 
 	// input names => defaults
 	$values = [
-		'title' => '',
-		'description' => '',
+		'title' => null,
+		'description' => null,
 		'access_id' => ACCESS_DEFAULT,
-		'tags' => '',
+		'tags' => null,
 		'container_guid' => elgg_get_page_owner_guid(),
 		'guid' => null,
 		'entity' => $post,
 		'comments_on' => 'Off',
-		'price' => '',
-		'marketcategory' => '',
-		'market_type' => '',
-		'location' => '',
-		'custom' => '',
+		'price' => null,
+		'marketcategory' => null,
+		'market_type' => null,
+		'location' => null,
+		'custom' => null,
 	];
 
 	if ($post) {
@@ -46,4 +44,18 @@ function market_prepare_form_vars($post = null) {
 	elgg_clear_sticky_form('market');
 
 	return $values;
+}
+
+function format_from_bytes($size, $precision = 2) {
+	$size = (int) $size;
+	if ($size < 0) {
+		return false;
+	}
+	
+	$precision = (int) $precision;
+	if ($precision < 0) {
+		$precision = 2;
+	}
+
+	return round($size/1048576, $precision);
 }

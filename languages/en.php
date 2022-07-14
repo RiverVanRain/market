@@ -1,12 +1,10 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
 return [
 
@@ -67,20 +65,19 @@ return [
 	'market:terms:title' => "Terms of use",
 	
 	//Notifications
-	'market:notify:subject:created' => "New Market ad was created",
-	'market:notify:summary:created' => "New Market ad was created",
-	'market:notify:body:created' =>
-'%s created a new ad to the Market:
+	'market:notify:subject' => "New Market ad %s was created",
+	'market:notify:summary' => "New Market ad %s was created",
+	'market:notify:body' => "%s created a new ad on the Market:
 
 %s - %s
-%s
 
 View the Market ad here: %s
-',
+",
 	//Groups
 	'market:group' => "Group market",
 	'market:none' => "No market",
-	'market:enablemarket' => "Enable group market",
+	'settings:market:enable_groups' => "Enable market in groups",
+	'groups:tool:market' => "Enable group market",
 	
 	//Widget
 	'market:widget' => "Market",
@@ -150,11 +147,12 @@ View the Market ad here: %s
 	'settings:market:expire:month' => "month",
 	'settings:market:expire:months' => "months",
 	'market:expire:subject' => "Your market ad has expired",
-	'market:expire:body' => "Hi %s
+	'market:expire:body' => "Hi %s,
 
-Your market ad '%s' you created %s, has been deleted.
+Your market ad '%s' you created %s has been deleted.
 
-This happens automatically when market ad are older than %s month(s).",
+This happens automatically when market ad are older than %s month(s).
+",
 
 	'settings:market:terms' => "Terms of use",
 	'settings:market:terms:enable' => "Enable the market terms",
@@ -171,10 +169,28 @@ This happens automatically when market ad are older than %s month(s).",
 	// Custom select
 	'settings:market:custom' => "Custom field",
 	'settings:market:custom:help' => "Set some predefined choices for the custom select dropdown box in the ads form",
-	'settings:market:custom:activate' => "Enable custom select:",
+	'settings:market:custom:activate' => "Enable custom select",
 	'settings:market:custom:choices' => "Custom select choices",
 	'settings:market:custom:choices:help' => "Separate choices with commas",
 	'market:custom:select' => "Item condition",
 	'market:custom:text' => "Condition",
+	
+	//DROPZONE
+	'item:object:temp_file_upload' => 'Dropzone temp file',
+	'collection:object:temp_file_upload' => 'Dropzone temp file',
+	
+	'dropzone:response_error' => 'An unknown error has occurred',
+	'dropzone:default_message' => '<strong>Drop your files here</strong><br /><span>or click to select them from your device</span>',
+	'dropzone:remove_file' => 'Remove',
+	'dropzone:max_files_exceeded' => 'You have reached the maximum number of files you can upload at once',
+	'dropzone:fallback_message' => 'Your browser does not support drag and drop uploads',
+	'dropzone:fallback_text' => 'Please use the file input to upload your files the old way',
+	'dropzone:invalid_filetype' => 'Files of this type are not allowed',
+	'dropzone:file_too_big' => 'File is too big',
+	'dropzone:cancel_upload' => 'Cancel upload',
+	'dropzone:cancel_upload_confirmation' => 'Are you sure you want to cancel the upload?',
+	'dropzone:server_side_error' => 'Server Error',
+	'dropzone:file_not_entity' => 'File entity could not be created',
+	'dropzone:ini:upload_limit' => 'Maximum allowed file size is %s',
 	
 ];

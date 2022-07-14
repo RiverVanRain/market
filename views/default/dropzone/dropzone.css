@@ -1,0 +1,231 @@
+@-webkit-keyframes dropzone-move {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 50px 50px;
+	}
+}
+
+.elgg-dropzone [data-template] {
+	display: none;
+	visibility: hidden;
+}
+
+.elgg-input-dropzone {
+	position: relative;
+	padding: 1px;
+	border: 1px dashed $(border-color-strong);
+	border-radius: $(button-border-radius);
+}
+
+.elgg-dropzone-instructions {
+	cursor: pointer;
+	font-size: .9rem;
+	text-align: center;
+	display: block;
+	padding: 1rem;
+}
+
+.elgg-dropzone-instructions * {
+	text-align: center;
+}
+
+.elgg-dropzone-instructions strong, .elgg-dropzone-instructions span {
+	line-height: 1.5rem;
+	color: $(text-color-soft);
+}
+.elgg-dropzone-instructions .elgg-icon { cursor: pointer; top: 0; left: 0; right: 0; width: 100%; font-size: 3em; color: $(text-color-soft); margin: 0 auto; line-height: 15px; padding: 20px 0; z-index: 1; }
+
+.elgg-input-dropzone.dz-drag-hover > .elgg-dropzone-instructions{background-color: $(anchor-color)}
+.elgg-input-dropzone.dz-drag-hover > .elgg-dropzone-instructions * {color: #fff}
+
+.elgg-dropzone-preview {
+	display: block;
+	vertical-align: middle;
+	width: 100%;
+	border: none;
+	position: relative;
+	padding: 0.5rem 0.5rem 1rem;
+	box-sizing: border-box;
+}
+
+.elgg-dropzone-instructions + .elgg-dropzone-preview {
+	border-top: 1px solid $(border-color-soft);
+}
+
+.elgg-dropzone-preview:nth-child(odd) {
+	background: $(background-color-soft);
+}
+
+.elgg-dropzone-preview:nth-child(even) {
+	background: $(layout-background-color);
+}
+
+.elgg-dropzone-preview .elgg-dropzone-item-props {
+	display: flex;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-item-props > * {
+	padding: 5px 10px;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-filename {
+	font-size: 12px;
+	text-align: left;
+	overflow: hidden;
+	flex-grow: 2;
+	flex-basis: 50%;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-filename > * {
+	vertical-align: middle;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-size {
+	font-size: 10px;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	flex-grow: 0;
+	flex-shrink: 1;
+	flex-basis: 50px;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-thumbnail {
+	text-align: center;
+	padding: 0;
+	max-height: 30px;
+	overflow: hidden;
+	vertical-align: middle;
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: 30px;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-thumbnail img {
+	width: 100%;
+	height: auto;
+	max-width: 30px;
+	line-height: 30px;
+	display: inline-block;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-controls {
+	flex-grow: 0;
+	flex-shrink: 0;
+	flex-basis: auto;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-success-icon {
+	display: none;
+	margin: 0 5px;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-success-icon .elgg-icon {
+	font-size: 0.8rem;
+	color: $(state-success-border-color);
+	cursor: default;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-error-icon {
+	display: none;
+	margin: 0 5px;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-error-icon .elgg-icon {
+	font-size: 0.8rem;
+	color: $(state-error-border-color);
+	cursor: default;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-remove-icon {
+	margin: 0 5px;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-remove-icon .elgg-icon {
+	font-size: 0.8rem;
+	cursor: pointer;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-remove-icon .elgg-icon:hover {
+	color: $(state-error-border-color);
+	text-decoration: none;
+}
+
+.elgg-dropzone-preview .elgg-dropzone-messages {
+	font-size: 10px;
+	color: $(state-error-border-color);
+}
+
+.elgg-dropzone-preview.elgg-dropzone-success .elgg-dropzone-success-icon {
+	display: inline;
+}
+
+.elgg-dropzone-preview.elgg-dropzone-success .elgg-dropzone-progress {
+	width: 98%;
+}
+
+.elgg-dropzone-preview.elgg-dropzone-success .elgg-dropzone-progress .elgg-dropzone-upload:after {
+	display: none;
+}
+
+.elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-error-icon {
+	display: inline;
+}
+
+.elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-messages, .elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-filename {
+	color: $(state-error-border-color);
+}
+
+.elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-progress {
+	width: 100%;
+	opacity: 0.5;
+}
+
+.elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-progress .elgg-dropzone-upload {
+	background: $(state-error-border-color);
+}
+
+.elgg-dropzone-preview.elgg-dropzone-error .elgg-dropzone-progress .elgg-dropzone-upload:after {
+	display: none;
+}
+
+.elgg-dropzone-progress {
+	position: absolute;
+	bottom: 1px;
+	left: 0;
+	width: 90%;
+	height: 4px;
+	border-bottom: 1px solid $(layout-background-color);
+}
+
+.elgg-dropzone-upload {
+	position: absolute;
+	background-color: $(state-success-border-color);
+	overflow: hidden;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 1%;
+}
+
+.elgg-dropzone-upload:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0.25, rgba(255, 255, 255, 0.2)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.2)), color-stop(0.75, rgba(255, 255, 255, 0.2)), color-stop(0.75, transparent), to(transparent));
+	background-image: -moz-linear-gradient(-45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent);
+	z-index: 1;
+	-webkit-background-size: 25px 25px;
+	-moz-background-size: 25px 25px;
+	-webkit-animation: dropzone-move 2s linear infinite;
+	overflow: hidden;
+}

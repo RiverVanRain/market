@@ -1,15 +1,5 @@
-define(['elgg', 'jquery', 'elgg/lightbox'], function (elgg, $, lightbox) {
+define(['elgg', 'jquery', 'elgg/lightbox', 'elgg/i18n'], function (elgg, $, lightbox, i18n) {
 	$(document).ready(function(){
-		var $form = $('form[name="marketForm"]');
-		var $checkbox = $('.elgg-input-checkbox').length;
-		$form.on('submit', function(e) {
-			if($checkbox && !($('.elgg-input-checkbox').prop('checked'))) {
-				alert(elgg.echo('market:accept:terms:error'));
-				$('.elgg-input-checkbox').focus();
-				e.preventDefault(); //prevent form from submitting
-			}
-		});
-		
 		$('#plaintext-description').keyup(function () {
 			var $textarea = $(this);
 			var limit = $textarea.data('limit');
@@ -36,22 +26,6 @@ define(['elgg', 'jquery', 'elgg/lightbox'], function (elgg, $, lightbox) {
 				$('#market-price').val('');
 				$('#market-price').prop('readonly', true);
 			}
-		});
-		
-		$('.elgg-dropzone-remove-icon').on('click', function(event) {
-			var $item = $(this).closest('.elgg-dropzone-item-props');
-			$item.slideToggle('medium');
-			elgg.action($(this).attr('href'), {
-				success: function(json) {
-					if (json.system_messages.error.length) {
-						$item.slideToggle('medium');
-					}
-				},
-				error: function() {
-					$item.slideToggle('medium');
-				}
-			});
-			event.preventDefault();
 		});
 		
 		var options = {

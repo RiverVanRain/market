@@ -2,34 +2,41 @@
 	"name": "rivervanrain/market",
 	"type": "elgg-plugin",
 	"description": "Elgg marketplace for creating classifieds",
+	"license": "GPL-2.0-only",
 	"keywords": [
 		"elgg", "plugin", "commerce", "classifieds", "marketplace"
 	],
-	"license": "GPL-2.0-only",
 	"authors": [
 		{
-			"name": "slyhne",
-		},
-		{
-			"name": "RiverVanRain",
-		},
-		{
-			"name": "Rohit Gupta",
-		},
+		  "name": "Nikolai Shcherbin",
+		  "email": "support@wzm.me"
+		}
 	],
-	"extra": {
-		"installer-name": "market"
-	},
 	"require": {
+		"php": "^7.4|^8.0",
 		"composer/installers": "^1.0.8",
-		"rivervanrain/hypedropzone": "^6.0"
+		"npm-asset/dropzone": "~5.0"
 	},
 	"autoload": {
 		"psr-0": {
 			"": "classes/"
 		}
 	},
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
 	"conflict": {
-		"elgg/elgg": "<3.0"
+		"elgg/elgg": "<4.2"
+	},
+	"support": {
+		"source": "https://github.com/rivervanrain/market"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
 	}
 }

@@ -1,14 +1,13 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
-class ElggMarket extends ElggObject {
+ 
+class ElggMarket extends \ElggObject {
 	
 	const SUBTYPE = 'market';
 	
@@ -32,7 +31,7 @@ class ElggMarket extends ElggObject {
 	
 	public function formatAttachments() {
 
-		$attachments = array();
+		$attachments = [];
 
 		$attachments[] = $this->html;
 
@@ -45,9 +44,9 @@ class ElggMarket extends ElggObject {
 	}
 
 	public function getAttachments($format = null, $size = 'small') {
-		$attachment_tags = array();
+		$attachment_tags = [];
 
-		$attachments = new ElggBatch('elgg_get_entities', [
+		$attachments = new \ElggBatch('elgg_get_entities', [
 			'relationship' => 'attached',
 			'relationship_guid' => $this->guid,
 			'limit' => false

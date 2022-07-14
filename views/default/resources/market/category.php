@@ -1,12 +1,10 @@
 <?php
 /**
- * Elgg Market Plugin
- * @package market
- * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
- * @author slyhne, RiverVanRain, Rohit Gupta
- * @copyright slyhne 2010-2015, wZm 2017
+ * Market
+ * @author Nikolai Shcherbin
+ * @license GNU Public License version 2
+ * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
- * @version 3.0
  */
 $selected_category = elgg_extract('category', $vars);
 
@@ -16,8 +14,9 @@ $title = urldecode($selected_category);
 
 elgg_push_collection_breadcrumbs('object', \ElggMarket::SUBTYPE);
 
-$category = urlencode($selected_category);
-elgg_push_breadcrumb($title, "market/category/{$category}");
+elgg_push_breadcrumb($title, elgg_generate_url('category:object:market', [
+	'category' => urlencode($selected_category),
+]));
 
 $options = [
 	'types' => 'object',
@@ -36,12 +35,8 @@ $options = [
 
 $content = elgg_list_entities($options);
 
-$layout = elgg_view_layout('content', [
-	'title' => $title,
+echo elgg_view_page($title, [
 	'content' => $content,
-	'filter' => elgg_view('filters/market/category', [
-		'filter_context' => $selected_category,
-	])
+	'filter_id' => 'market/category',
+	'filter_value' => $selected_category,
 ]);
-
-echo elgg_view_page($title, $layout);
