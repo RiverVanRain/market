@@ -2,9 +2,7 @@
 
 namespace wZm\Dropzone;
 
-use ElggFile;
-
-class TempUploadFile extends ElggFile {
+class TempUploadFile extends \ElggFile {
 	
 	const SUBTYPE = 'temp_file_upload';
 	

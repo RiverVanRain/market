@@ -55,7 +55,7 @@ class Events {
 			return;
 		}
 		
-		remove_entity_relationship($entity->guid, 'attached', $container->guid);
+		$entity->removeRelationship($container->guid, 'attached');
 	}
 	
 }

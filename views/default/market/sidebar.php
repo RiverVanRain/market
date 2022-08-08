@@ -6,7 +6,7 @@
  * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
  */
-$categories = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
+$categories = elgg_string_to_array(elgg_get_plugin_setting('market_categories', 'market', ''));
 
 if (!empty($categories)) {
 	echo elgg_view_module('info', elgg_echo('market:categories'), elgg_view('market/categories'));

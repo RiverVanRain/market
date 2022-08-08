@@ -58,7 +58,7 @@ foreach ($values as $name => $default) {
 
 	switch ($name) {
 		case 'tags':
-			$values[$name] = string_to_tag_array($value);
+			$values[$name] = elgg_string_to_array($value);
 			break;
 
 		case 'container_guid':
@@ -105,7 +105,7 @@ if ($upload_guids) {
 		$upload->access_id = $post->access_id;
 		if ($upload->save()) {
 			$uploads[] = $upload;
-			add_entity_relationship($upload->guid, 'attached', $post->guid);
+			$upload->addRelationship($post->guid, 'attached');
 		}
 	}
 }

@@ -173,7 +173,7 @@ class Filter {
 	public static function categoryRegister(\Elgg\Hook $hook) {
 		$return = $hook->getValue();
 		
-		$tabs = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
+		$tabs = elgg_string_to_array(elgg_get_plugin_setting('market_categories', 'market', ''));
 
 		foreach ($tabs as $tab) {
 			$return[] = \ElggMenuItem::factory([

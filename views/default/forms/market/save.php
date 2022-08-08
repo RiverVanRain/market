@@ -12,8 +12,8 @@ $vars['entity'] = $post;
 // Get plugin settings
 $currency = elgg_get_plugin_setting('market_currency', 'market');
 $numchars = elgg_get_plugin_setting('market_numchars', 'market');
-$marketcategories = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
-$custom_choices = string_to_tag_array(elgg_get_plugin_setting('market_custom_choices', 'market'));
+$marketcategories = elgg_string_to_array(elgg_get_plugin_setting('market_categories', 'market', ''));
+$custom_choices = elgg_string_to_array(elgg_get_plugin_setting('market_custom_choices', 'market', ''));
 
 //title
 echo elgg_view_field([

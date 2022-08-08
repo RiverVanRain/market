@@ -8,7 +8,7 @@
  */
 $selected_category = get_input('category');
 
-$categories = string_to_tag_array(elgg_get_plugin_setting('market_categories', 'market'));
+$categories = elgg_string_to_array(elgg_get_plugin_setting('market_categories', 'market', ''));
 
 $ul = '';
 $li = '';
