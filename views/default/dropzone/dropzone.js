@@ -1,14 +1,5 @@
-define(function (require) {
-
-	var elgg = require('elgg');
-	var $ = require('jquery');
-	var Ajax = require('elgg/Ajax');
-	var system_messages = require('elgg/system_messages');
-	var i18n = require('elgg/i18n');
-	var security = require('elgg/security');
-
-	require('dropzone/lib');
-
+define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/i18n', 'elgg/security', 'dropzone/lib'], function ($, elgg, Ajax, i18n, security) {
+	
 	var dz = {
 		/**
 		 * Initialize dropzone on DOM ready
@@ -253,8 +244,9 @@ define(function (require) {
 			var preview = file.previewElement;
 			var guid = $(preview).data('guid');
 
+			var ajax = new Ajax();
 			if (guid) {
-				elgg.action('entity/delete', {
+				ajax.action('entity/delete', {
 					data: {
 						guid: guid
 					}

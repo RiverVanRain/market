@@ -10,7 +10,7 @@
 return [
 	'plugin' => [
 		'name' => 'Market',
-		'version' => '4.1.0',
+		'version' => '4.1.1',
 	],
 	
 	'bootstrap' => \Market\Bootstrap::class,
