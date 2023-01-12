@@ -18,6 +18,7 @@ if ($guid) {
 	$entity = get_entity($guid);
 	if ($entity instanceof \ElggMarket && $entity->canEdit()) {
 		$post = $entity;
+		$new_post = false;
 	} else {
 		return elgg_error_response(elgg_echo('market:error:post_not_found'));
 	}

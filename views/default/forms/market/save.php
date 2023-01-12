@@ -189,7 +189,7 @@ echo elgg_view_field([
 	'max' => 25,
 	'multiple' => true,
 	'action' => elgg_normalize_url('action/dropzone/upload'),
-	'subtype' => 'file',
+	'subtype' => 'market_file',
 	'container_guid' => elgg_get_logged_in_user_guid(),
 ]);
 

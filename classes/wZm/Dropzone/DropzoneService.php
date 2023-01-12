@@ -6,6 +6,7 @@ use Elgg\Request;
 use ElggFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Market\MarketFile;
 
 class DropzoneService {
 
@@ -20,7 +21,7 @@ class DropzoneService {
 
 		$subtype = $request->getParam('subtype');
 		if (!$subtype) {
-			$subtype = 'file';
+			$subtype = 'market_file';
 		}
 
 		$uploads = $this->saveUploadedFiles('dropzone', [
@@ -38,7 +39,7 @@ class DropzoneService {
 			$messages = [];
 			$success = true;
 
-			if ($upload->error) {
+			if (isset($upload->error)) {
 				$messages[] = $upload->error;
 				$success = false;
 				$guid = false;
@@ -96,20 +97,20 @@ class DropzoneService {
 	 * @param string $input_name Form input name
 	 * @param array  $attributes File attributes
 	 *
-	 * @return ElggFile[]
+	 * @return MarketFile[]
 	 */
-	protected function saveUploadedFiles($input_name, array $attributes = []) {
+	protected function saveUploadedFiles(string $input_name, array $attributes = []) {
 
 		$files = [];
 
 		$uploaded_files = $this->getUploadedFiles($input_name);
 
-		$subtype = elgg_extract('subtype', $attributes, 'file', false);
+		$subtype = elgg_extract('subtype', $attributes, 'market_file', false);
 		unset($attributes['subtype']);
 
 		$class = elgg_get_entity_class('object', $subtype);
-		if (!$class || !class_exists($class) || !is_subclass_of($class, ElggFile::class)) {
-			$class = ElggFile::class;
+		if (!$class || !class_exists($class) || !is_subclass_of($class, MarketFile::class)) {
+			$class = MarketFile::class;
 		}
 
 		foreach ($uploaded_files as $upload) {
@@ -133,8 +134,8 @@ class DropzoneService {
 			}
 
 			$file = new $class();
-			/* @var $file ElggFile */
-			$file->subtype = $subtype;
+			/* @var $file MarketFile */
+			$file->setSubtype($subtype);
 			foreach ($attributes as $key => $value) {
 				$file->$key = $value;
 			}

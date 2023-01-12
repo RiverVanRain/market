@@ -3,7 +3,7 @@
 namespace wZm\Dropzone;
 
 use Elgg\Hook;
-use \Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Actions {
 	

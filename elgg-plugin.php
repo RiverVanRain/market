@@ -10,7 +10,7 @@
 return [
 	'plugin' => [
 		'name' => 'Market',
-		'version' => '4.1.1',
+		'version' => '4.2.0',
 	],
 	
 	'bootstrap' => \Market\Bootstrap::class,
@@ -24,6 +24,16 @@ return [
 				'commentable' => true,
 				'searchable' => true,
 				'likable' => true,
+			],
+		],
+		[
+			'type' => 'object',
+			'subtype' => 'market_file',
+			'class' => \Market\MarketFile::class,
+			'capabilities' => [
+				'commentable' => false,
+				'searchable' => false,
+				'likable' => false,
 			],
 		],
 		//Dropzone
@@ -218,5 +228,9 @@ return [
 		'market_custom' => false,
 		'market_expire' => '0',
 		'market_terms_enable' => false,
+	],
+	
+	'upgrades' => [
+		\Market\Upgrades\MigrateMarketFiles::class,
 	],
 ];

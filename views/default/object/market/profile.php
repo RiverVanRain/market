@@ -23,6 +23,8 @@ if ($attachments) {
 }
 
 //buttons
+$mark_status = false;
+
 if ($entity->owner_guid == elgg_get_logged_in_user_guid() || $entity->canEdit()) {
 	if($entity->status != 'sold'){
 		$href = elgg_generate_action_url('market/sold', [
@@ -44,6 +46,8 @@ if ($entity->owner_guid == elgg_get_logged_in_user_guid() || $entity->canEdit())
 		'is_action' => true,
 	]);
 }
+
+$send_message = false;
 
 if ((bool) elgg_get_plugin_setting('market_pmbutton', 'market')) {
 	if ($entity->owner_guid != elgg_get_logged_in_user_guid() && $entity->status != 'sold' && elgg_is_active_plugin('messages')) {

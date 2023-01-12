@@ -2,9 +2,6 @@
 
 namespace wZm\Dropzone;
 
-use Elgg\Http\ResponseBuilder;
-use Elgg\Request;
-
 class UploadAction {
 
 	/**
@@ -13,7 +10,7 @@ class UploadAction {
 	 * @param Request $request Request
 	 * @return ResponseBuilder
 	 */
-	public function __invoke(Request $request) {
+	public function __invoke(\Elgg\Request $request) {
 
 		$svc = elgg()->dropzone;
 		/* @var $svc \wZm\DropzoneService */

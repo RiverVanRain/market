@@ -30,6 +30,9 @@ return [
 	'item:object:market' => 'Market ad',
 	'market:none:found' => 'No market ad found',
 	
+	'item:object:market_file' => 'Market files',
+	'collection:object:market_file' => "Market file",
+	
 	'add:object:market' => "Create new ad",
 	'market:read' => "View ad",
 	'market:mark:sold' => 'Mark as Sold',
@@ -174,6 +177,10 @@ This happens automatically when market ad are older than %s month(s).
 	'settings:market:custom:choices:help' => "Separate choices with commas",
 	'market:custom:select' => "Item condition",
 	'market:custom:text' => "Condition",
+	
+	// Upgrades
+	'market:upgrade:2023011200:title' => 'Migrate files to market files',
+	'market:upgrade:2023011200:description' => 'ElggFile will be update on MarketFile',
 	
 	//DROPZONE
 	'item:object:temp_file_upload' => 'Dropzone temp file',
