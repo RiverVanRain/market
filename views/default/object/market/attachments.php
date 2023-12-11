@@ -14,7 +14,8 @@ $options = [
 	'relationship_guid' => $entity->guid,
 	'inverse_relationship' => true,
 	'metadata_name_value_pairs' => [
-		'name' => 'simpletype', 'value' => 'image',
+		'name' => 'simpletype', 
+		'value' => 'image',
 	],
 	'count' => true,
 	'limit' => 0,

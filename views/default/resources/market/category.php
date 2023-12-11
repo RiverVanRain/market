@@ -8,7 +8,7 @@
  */
 $selected_category = elgg_extract('category', $vars);
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 $title = urldecode($selected_category);
 

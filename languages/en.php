@@ -178,10 +178,6 @@ This happens automatically when market ad are older than %s month(s).
 	'market:custom:select' => "Item condition",
 	'market:custom:text' => "Condition",
 	
-	// Upgrades
-	'market:upgrade:2023011200:title' => 'Migrate files to market files',
-	'market:upgrade:2023011200:description' => 'ElggFile will be update on MarketFile',
-	
 	//DROPZONE
 	'item:object:temp_file_upload' => 'Dropzone temp file',
 	'collection:object:temp_file_upload' => 'Dropzone temp file',

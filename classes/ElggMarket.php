@@ -15,14 +15,13 @@ class ElggMarket extends \ElggObject {
 		parent::initializeAttributes();
 		$this->attributes['subtype'] = self::SUBTYPE;
 	}
-	
-	public function canComment($user_guid = 0, $default = null) {
-		$result = parent::canComment($user_guid, $default);
-		if (!$result) {
-			return $result;
+
+	public function canComment(int $user_guid = 0): bool {
+		if (!parent::canComment($user_guid)) {
+			return false;
 		}
 
-		if ($this->comments_on === 'Off') {
+		if ($this->comments_on === 'Off' || $this->status === 'sold') {
 			return false;
 		}
 		
@@ -40,7 +39,7 @@ class ElggMarket extends \ElggObject {
 		]);
 
 		$output = (count($attachments)) ? implode('', $attachments) : false;
-		return elgg_trigger_plugin_hook('attachments:format', 'market', ['entity' => $this], $output);
+		return elgg_trigger_event_results('attachments:format', 'market', ['entity' => $this], $output);
 	}
 
 	public function getAttachments($format = null, $size = 'small') {

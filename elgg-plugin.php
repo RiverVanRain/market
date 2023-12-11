@@ -10,7 +10,7 @@
 return [
 	'plugin' => [
 		'name' => 'Market',
-		'version' => '4.2.0',
+		'version' => '5.0.0',
 	],
 	
 	'bootstrap' => \Market\Bootstrap::class,
@@ -123,10 +123,16 @@ return [
 		],
 	],
 	
-	'hooks' => [
+	'events' => [
 		'container_logic_check' => [
 			'object' => [
 				\Market\GroupToolContainerLogicCheck::class => [],
+			],
+		],
+		'delete' => [
+			'object' => [
+				'\Market\Events::deleteMarket' => ['priority' => 600],
+				'\Market\Events::deleteImage' => ['priority' => 600],
 			],
 		],
 		'register' => [
@@ -170,15 +176,6 @@ return [
 			'daily' => [
 				'\Market\Cron::marketCronDaily' => [],
 				'\wZm\Dropzone\Cron::cleanupTempUploadedFiles' => [],
-			],
-		],
-	],
-	
-	'events' => [
-		'delete' => [
-			'object' => [
-				'\Market\Events::deleteMarket' => ['priority' => 600],
-				'\Market\Events::deleteImage' => ['priority' => 600],
 			],
 		],
 	],
@@ -228,9 +225,5 @@ return [
 		'market_custom' => false,
 		'market_expire' => '0',
 		'market_terms_enable' => false,
-	],
-	
-	'upgrades' => [
-		\Market\Upgrades\MigrateMarketFiles::class,
 	],
 ];

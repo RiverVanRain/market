@@ -45,10 +45,10 @@ $title = elgg_echo('market:add:title');
 
 $form_vars = [
 	'enctype' => 'multipart/form-data',
-	'prevent_double_submit' => false,
+	'sticky_enabled' => true,
 ];
-$body_vars = market_prepare_form_vars();
-$content = elgg_view_form('market/save', $form_vars, $body_vars);
+
+$content = elgg_view_form('market/save', $form_vars, []);
 
 echo elgg_view_page($title, [
 	'content' => $content,

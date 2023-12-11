@@ -6,8 +6,7 @@
  * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
  */
-$post = get_entity($vars['guid']);
-$vars['entity'] = $post;
+$post = elgg_extract('entity', $vars);
 
 // Get plugin settings
 $currency = elgg_get_plugin_setting('market_currency', 'market');
@@ -200,7 +199,8 @@ if($post instanceof \ElggMarket){
 		'relationship_guid' => $post->guid,
 		'inverse_relationship' => true,
 		'metadata_name_value_pairs' => [
-			'name' => 'simpletype', 'value' => 'image',
+			'name' => 'simpletype', 
+			'value' => 'image',
 		],
 		'limit' => 0,
 	];
@@ -265,6 +265,7 @@ if ((bool) elgg_get_plugin_setting('market_terms_enable', 'market')) {
 		'#label' => elgg_echo('market:accept:terms', [$termslink]),
 		'#type' => 'checkbox',
 		'name' => 'accept_terms',
+		'switch' => true,
 		'required' => true,
 	]);
 }
@@ -288,7 +289,7 @@ foreach ($fields as $field) {
 }
 
 $footer = elgg_view('input/submit', [
-	'value' => elgg_echo('save'),
+	'text' => elgg_echo('save'),
 	'name' => 'save',
 ]);
 

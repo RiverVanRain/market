@@ -6,8 +6,6 @@
  * @copyright (c) Nikolai Shcherbin 2017
  * @link https://wzm.me
  */
-// start a new sticky form session in case of failure
-elgg_make_sticky_form('market');
 
 $user = elgg_get_logged_in_user_entity();
 
@@ -110,9 +108,6 @@ if ($upload_guids) {
 		}
 	}
 }
-
-// remove sticky form entries
-elgg_clear_sticky_form('market');
 
 if ($new_post) {
 	$post->status = 'open';

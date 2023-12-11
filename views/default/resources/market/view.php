@@ -12,7 +12,7 @@ elgg_entity_gatekeeper($guid, 'object', \ElggMarket::SUBTYPE);
 
 $entity = get_entity($guid);
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 elgg_push_collection_breadcrumbs('object', \ElggMarket::SUBTYPE);
 

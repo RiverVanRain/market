@@ -1,4 +1,4 @@
-define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/i18n', 'elgg/security', 'dropzone/lib'], function ($, elgg, Ajax, i18n, security) {
+define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/i18n', 'elgg/security', 'elgg/hooks', 'dropzone/lib'], function ($, elgg, Ajax, i18n, security, hooks) {
 	
 	var dz = {
 		/**
@@ -93,8 +93,13 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/i18n', 'elgg/security', 'dropzone/l
 				return;
 			}
 
-			var params = elgg.trigger_hook('config', 'dropzone', {dropzone: $input}, $input.data());
-
+			var params = hooks.trigger(
+				'config',
+				'dropzone',
+				{dropzone: $input},
+				$input.data()
+			);
+			
 			var query = $input.data('query') || {};
 
 			//These will be sent as a URL query and will be available in the action
@@ -218,8 +223,12 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/i18n', 'elgg/security', 'dropzone/l
 					$(preview).addClass('elgg-dropzone-error').removeClass('elgg-dropzone-success');
 					$(preview).find('.elgg-dropzone-messages').html(i18n.echo('dropzone:server_side_error'));
 				}
-
-				elgg.trigger_hook('upload:success', 'dropzone', {file: file, data: data});
+				
+				hooks.trigger(
+					'upload:success',
+					'dropzone',
+					{file: file, data: data}
+				);
 			});
 		},
 		
@@ -274,9 +283,13 @@ define(['jquery', 'elgg', 'elgg/Ajax', 'elgg/i18n', 'elgg/security', 'dropzone/l
 			$input.prop('required', true);
 		}
 	};
-
-	elgg.register_hook_handler('config', 'dropzone', dz.config);
-
+	
+	hooks.register(
+		'config',
+		'dropzone',
+		dz.config
+	);
+	
 	dz.init();
 
 	return dz;

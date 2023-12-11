@@ -18,16 +18,17 @@ if (!$entity->canEdit()) {
 elgg_push_entity_breadcrumbs($entity);
 elgg_push_breadcrumb(elgg_echo('edit'));
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 $title = elgg_echo('market:edit');
 $form_vars = [
 	'enctype' => 'multipart/form-data',
-	'prevent_double_submit' => false,
+	'sticky_enabled' => true,
 ];
 
-$body_vars = market_prepare_form_vars($entity);
-$content = elgg_view_form('market/save', $form_vars, $body_vars);
+$content = elgg_view_form('market/save', $form_vars, [
+	'entity' => $entity
+]);
 
 echo elgg_view_page($title, [
 	'content' => $content,

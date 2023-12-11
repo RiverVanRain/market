@@ -8,14 +8,14 @@
  */
 $username = elgg_extract('username', $vars);
 
-$user = get_user_by_username($username);
+$user = elgg_get_user_by_username($username);
 if (!$user) {
 	throw new \Elgg\Exceptions\Http\EntityNotFoundException();
 }
 
 elgg_push_collection_breadcrumbs('object', 'market', $user, true);
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 $title = elgg_echo('collection:friends', [elgg_echo('collection:object:market')]);
 

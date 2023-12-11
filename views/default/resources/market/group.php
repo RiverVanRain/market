@@ -21,7 +21,7 @@ $namevalue_pairs = [];
 $namevalue_pairs[] = ['name' => 'market_type', 'value' => $selected_type, 'operand' => '='];
 $namevalue_pairs[] = ['name' => 'status', 'value' => 'open', 'operand' => '='];
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 elgg_push_collection_breadcrumbs('object', 'market', $group);
 

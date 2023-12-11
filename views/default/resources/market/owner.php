@@ -8,7 +8,7 @@
  */
 $username = elgg_extract('username', $vars);
 
-$user = get_user_by_username($username);
+$user = elgg_get_user_by_username($username);
 if (!$user) {
 	throw new \Elgg\Exceptions\Http\EntityNotFoundException();
 }
@@ -21,7 +21,7 @@ $namevalue_pairs[] = ['name' => 'status', 'value' => 'open', 'operand' => '='];
 
 elgg_push_collection_breadcrumbs('object', 'market', $user);
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 $title = elgg_echo('collection:object:market:owner', [$user->getDisplayName()]);
 

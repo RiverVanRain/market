@@ -1,6 +1,6 @@
 Market
 ===============================
-![Elgg 4.2](https://img.shields.io/badge/Elgg-4.2-green.svg?style=flat-square)
+![Elgg 5.0](https://img.shields.io/badge/Elgg-5.0-purple.svg?style=flat-square)
 
 Elgg marketplace for creating classifieds
 

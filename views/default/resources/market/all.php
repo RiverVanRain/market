@@ -14,7 +14,7 @@ $namevalue_pairs[] = ['name' => 'status', 'value' => 'open', 'operand' => '='];
 
 elgg_push_collection_breadcrumbs('object', \ElggMarket::SUBTYPE);
 
-elgg_register_title_button('market', 'add', 'object', 'market');
+elgg_register_title_button('add', 'object', 'market');
 
 $options = [
 	'types' => 'object',

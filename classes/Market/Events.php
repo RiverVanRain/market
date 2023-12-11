@@ -25,7 +25,8 @@ class Events {
 			'relationship_guid' => $entity->guid,
 			'inverse_relationship' => true,
 			'metadata_name_value_pairs' => [
-				'name' => 'simpletype', 'value' => 'image',
+				'name' => 'simpletype', 
+				'value' => 'image',
 			],
 			'limit' => 0,
 		];

@@ -52,10 +52,10 @@ class Bootstrap extends DefaultPluginBootstrap {
 	 * @return void
 	 */
 	public function init() {
-		$hooks = $this->elgg()->hooks;
+		$events = $this->elgg()->events;
 		
 		//Sidebar
-		if(elgg_in_context('market')){
+		if (elgg_in_context('market')){
 			elgg_extend_view('page/elements/sidebar', 'market/sidebar', 100);
 		}
 
@@ -64,8 +64,8 @@ class Bootstrap extends DefaultPluginBootstrap {
 		
 		//Icons
 		if (!elgg_is_active_plugin('file')) {
-			$hooks->registerHandler('entity:icon:sizes', 'object', [Icons::class, 'setIconSizes']);
-			$hooks->registerHandler('entity:icon:file', 'object', [Icons::class, 'setIconFile']);
+			$events->registerHandler('entity:icon:sizes', 'object', [Icons::class, 'setIconSizes']);
+			$events->registerHandler('entity:icon:file', 'object', [Icons::class, 'setIconFile']);
 		}
 		
 		if ((bool) elgg_get_plugin_setting('enable_groups', 'market')) {

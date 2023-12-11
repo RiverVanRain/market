@@ -19,7 +19,7 @@ class TempUploadFile extends \ElggFile {
 	 * {@inheritDoc}
 	 * @see ElggEntity::saveIconFromElggFile()
 	 */
-	public function saveIconFromElggFile(\ElggFile $file, $type = 'icon', array $coords = array()) {
+	public function saveIconFromElggFile(\ElggFile $file, string $type = 'icon', array $coords = array()): bool {
 		return false;
 	}
 }

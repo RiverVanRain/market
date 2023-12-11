@@ -13,8 +13,7 @@
 		}
 	],
 	"require": {
-		"php": "^7.4|^8.0",
-		"composer/installers": "^1.0.8",
+		"php": "^8.0",
 		"npm-asset/dropzone": "~5.0"
 	},
 	"autoload": {
@@ -29,14 +28,14 @@
         }
     ],
 	"conflict": {
-		"elgg/elgg": "<4.3"
+		"elgg/elgg": "<5.0"
 	},
 	"support": {
 		"source": "https://github.com/rivervanrain/market"
 	},
 	"config": {
 		"allow-plugins": {
-			"composer/installers": true
+			"composer/installers": false
 		}
 	}
 }
