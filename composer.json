@@ -28,7 +28,8 @@
         }
     ],
 	"conflict": {
-		"elgg/elgg": "<5.0"
+		"elgg/elgg": "<5.0",
+		"subwebz/theme": "*"
 	},
 	"support": {
 		"source": "https://github.com/rivervanrain/market"
