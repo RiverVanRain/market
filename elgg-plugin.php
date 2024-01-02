@@ -135,6 +135,11 @@ return [
 				'\Market\Events::deleteImage' => ['priority' => 600],
 			],
 		],
+		'form:prepare:fields' => [
+			'market/save' => [
+				\Market\Forms\PrepareFields::class => [],
+			],
+		],
 		'register' => [
 			'menu:owner_block' => [
 				'\Market\Menus\OwnerBlock::registerUserItem' => [],

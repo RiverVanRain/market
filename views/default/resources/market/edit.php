@@ -15,12 +15,12 @@ if (!$entity->canEdit()) {
 	throw new \Elgg\Exceptions\Http\EntityPermissionsException();
 }
 
+$vars['entity'] = $entity;
+
 elgg_push_entity_breadcrumbs($entity);
-elgg_push_breadcrumb(elgg_echo('edit'));
 
 elgg_register_title_button('add', 'object', 'market');
 
-$title = elgg_echo('market:edit');
 $form_vars = [
 	'enctype' => 'multipart/form-data',
 	'sticky_enabled' => true,
@@ -30,7 +30,7 @@ $content = elgg_view_form('market/save', $form_vars, [
 	'entity' => $entity
 ]);
 
-echo elgg_view_page($title, [
+echo elgg_view_page(elgg_echo('market:edit'), [
 	'content' => $content,
 	'filter_id' => 'market/edit',
 ]);

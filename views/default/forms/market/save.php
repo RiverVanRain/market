@@ -273,9 +273,9 @@ if ((bool) elgg_get_plugin_setting('market_terms_enable', 'market')) {
 //hiddens
 $fields = [
 	[
-		'#type' => 'hidden',
-		'name' => 'container_guid',
-		'value' => elgg_get_page_owner_guid(),
+		'#type' => 'container_guid',
+		'entity_type' => 'object',
+		'entity_subtype' => 'market',
 	],
 	[
 		'#type' => 'hidden',
@@ -290,6 +290,7 @@ foreach ($fields as $field) {
 
 $footer = elgg_view('input/submit', [
 	'text' => elgg_echo('save'),
+	'value' => 1,
 	'name' => 'save',
 ]);
 
