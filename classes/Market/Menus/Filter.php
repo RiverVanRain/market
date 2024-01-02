@@ -10,8 +10,8 @@ namespace Market\Menus;
  */
 class Filter {
 
-	public static function allRegister(\Elgg\Hook $hook) {
-		$return = $hook->getValue();
+	public static function allRegister(\Elgg\Event $event) {
+		$return = $event->getValue();
 		
 		$return[] = \ElggMenuItem::factory([
 			'name' => 'all',
@@ -62,13 +62,13 @@ class Filter {
 		return $return;
 	}
 	
-	public static function ownerRegister(\Elgg\Hook $hook) {
-		$entity = $hook->getParam('filter_entity');
+	public static function ownerRegister(\Elgg\Event $event) {
+		$entity = $event->getParam('filter_entity');
 		if (!$entity instanceof \ElggUser) {
 			return;
 		}
 		
-		$return = $hook->getValue();
+		$return = $event->getValue();
 		
 		$return[] = \ElggMenuItem::factory([
 			'name' => 'all',
@@ -114,8 +114,8 @@ class Filter {
 		return $return;
 	}
 	
-	public static function groupRegister(\Elgg\Hook $hook) {
-		$entity = $hook->getParam('filter_entity');
+	public static function groupRegister(\Elgg\Event $event) {
+		$entity = $event->getParam('filter_entity');
 		if (!$entity instanceof \ElggGroup) {
 			return;
 		}
@@ -124,7 +124,7 @@ class Filter {
 			return;
 		}
 		
-		$return = $hook->getValue();
+		$return = $event->getValue();
 		
 		$return[] = \ElggMenuItem::factory([
 			'name' => 'all',
@@ -170,8 +170,8 @@ class Filter {
 		return $return;
 	}
 	
-	public static function categoryRegister(\Elgg\Hook $hook) {
-		$return = $hook->getValue();
+	public static function categoryRegister(\Elgg\Event $event) {
+		$return = $event->getValue();
 		
 		$tabs = elgg_string_to_array(elgg_get_plugin_setting('market_categories', 'market', ''));
 

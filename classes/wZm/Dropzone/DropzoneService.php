@@ -125,7 +125,7 @@ class DropzoneService {
 					// Determine the correct value
 					$max_upload = $upload_max_filesize > $post_max_size ? $post_max_size : $upload_max_filesize;
 					
-					$files_upload_max_size = (int) format_from_bytes($max_upload);
+					$files_upload_max_size = (int) get_format_from_bytes($max_upload);
 					
 					$error->error .= '<br />' . elgg_echo('theme:files:upload_limit', [$files_upload_max_size]);
 				}

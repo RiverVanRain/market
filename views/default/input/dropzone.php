@@ -64,7 +64,7 @@ $upload_max_filesize = elgg_get_ini_setting_in_bytes('upload_max_filesize');
 // Determine the correct value
 $max_upload = $upload_max_filesize > $post_max_size ? $post_max_size : $upload_max_filesize;
 
-$options['data-max-filesize'] = (int) format_from_bytes($max_upload);
+$options['data-max-filesize'] = (int) get_format_from_bytes($max_upload);
 if (isset($vars['max_filesize'])) {
 	$options['data-max-filesize'] = $vars['max_filesize'];
 	unset($vars['max_filesize']);

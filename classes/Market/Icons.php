@@ -10,13 +10,13 @@ namespace Market;
 
 class Icons {
 	
-	public static function setIconSizes(\Elgg\Hook $hook) {
+	public static function setIconSizes(\Elgg\Event $event) {
 	
-		if ($hook->getParam('entity_subtype') !== 'file') {
+		if ($event->getParam('entity_subtype') !== 'file') {
 			return;
 		}
 	
-		$return = $hook->getValue();
+		$return = $event->getValue();
 		
 		$return['small'] = [
 			'w' => 60,
@@ -39,14 +39,14 @@ class Icons {
 		return $return;
 	}
 	
-	public static function setIconFile(\Elgg\Hook $hook) {
+	public static function setIconFile(\Elgg\Event $event) {
 	
-		$entity = $hook->getEntityParam();
+		$entity = $event->getEntityParam();
 		if (!$entity instanceof \ElggFile) {
 			return;
 		}
 		
-		$size = $hook->getParam('size', 'large');
+		$size = $event->getParam('size', 'large');
 		switch ($size) {
 			case 'small' :
 				$filename_prefix = 'thumb';
@@ -64,7 +64,7 @@ class Icons {
 				break;
 		}
 	
-		$icon = $hook->getValue();
+		$icon = $event->getValue();
 		
 		$icon->owner_guid = $entity->owner_guid;
 		if (isset($entity->$metadata_name)) {

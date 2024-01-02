@@ -7,7 +7,7 @@
  * @link https://wzm.me
  */
 
-function format_from_bytes($size, $precision = 2) {
+function get_format_from_bytes($size, $precision = 2) {
 	$size = (int) $size;
 	if ($size < 0) {
 		return false;

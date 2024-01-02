@@ -2,7 +2,6 @@
 
 namespace wZm\Dropzone;
 
-use Elgg\Hook;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Actions {
@@ -10,15 +9,15 @@ class Actions {
 	/**
 	 * Load uploaded file in the system for further use
 	 *
-	 * @param string $hook         the name of the hook
+	 * @param string $event         the name of the hook
 	 * @param string $type         the type of the hook
 	 * @param mixed  $return_value current return value
 	 * @param mixed  $params       supplied params
 	 *
 	 * @return void
 	 */
-	public static function prepareFiles(Hook $hook) {
-		
+	public static function prepareFiles(\Elgg\Event $event) {
+	
 		$file_fields = (array) get_input('dropzone_fields');
 		if (empty($file_fields)) {
 			return;

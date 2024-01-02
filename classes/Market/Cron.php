@@ -8,12 +8,9 @@
  */
 namespace Market;
 
-use ElggMarket;
-use Elgg\Hook;
-
 class Cron {
 	
-	public static function marketCronDaily(Hook $hook) {
+	public static function marketCronDaily(\Elgg\Event $event) {
 		
 		echo "Starting delete expired Market ads processing" . PHP_EOL;
 		elgg_log("Starting delete expired Market ads processing", 'NOTICE');
@@ -28,7 +25,7 @@ class Cron {
 			
 			$entities = elgg_get_entities([
 				'type' => 'object',
-				'subtype' => ElggMarket::SUBTYPE,
+				'subtype' => \ElggMarket::SUBTYPE,
 				'limit' => false,
 				'created_time_upper' => $time_limit,
 				'batch' => true,

@@ -2,7 +2,6 @@
 
 namespace wZm\Dropzone;
 
-use Elgg\Hook;
 use \Elgg\ViewsService;
 
 class Views {
@@ -10,15 +9,15 @@ class Views {
 	/**
 	 * Make an input/file into a dropzone
 	 *
-	 * @param string $hook         the name of the hook
+	 * @param string $event         the name of the hook
 	 * @param string $type         the type of the hook
 	 * @param mixed  $return_value current return value
 	 * @param mixed  $params       supplied params
 	 *
 	 * @return mixed
 	 */
-	public static function fileToDropzone(Hook $hook) {
-		$return_value = $hook->getValue();
+	public static function fileToDropzone(\Elgg\Event $event) {
+		$return_value = $event->getValue();
 		
 		$prevent_deadloop = isset($return_value['__Dropzone']);
 		unset($return_value['__Dropzone']);
@@ -47,15 +46,15 @@ class Views {
 	/**
 	 * Set a flag in input/dropzone to prevent deadloops with input/file
 	 *
-	 * @param string $hook         the name of the hook
+	 * @param string $event         the name of the hook
 	 * @param string $type         the type of the hook
 	 * @param mixed  $return_value current return value
 	 * @param mixed  $params       supplied params
 	 *
 	 * @return mixed
 	 */
-	public static function preventDropzoneDeadloop(Hook $hook) {
-		$return_value = $hook->getValue();
+	public static function preventDropzoneDeadloop(\Elgg\Event $event) {
+		$return_value = $event->getValue();
 		
 		$return_value['__Dropzone'] = true;
 		

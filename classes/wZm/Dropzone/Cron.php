@@ -2,20 +2,19 @@
 
 namespace wZm\Dropzone;
 
-use Elgg\Hook;
 class Cron {
 	
 	/**
 	 * Cleanup temp uploaded files which were left behind
 	 *
-	 * @param string $hook         the name of the hook
+	 * @param string $event         the name of the hook
 	 * @param string $type         the type of the hook
 	 * @param mixed  $return_value current return value
 	 * @param mixed  $params       supplied params
 	 *
 	 * @return void
 	 */
-	public static function cleanupTempUploadedFiles(Hook $hook) {
+	public static function cleanupTempUploadedFiles(\Elgg\Event $event) {
 		
 		echo 'Starting Dropzone cleanup' . PHP_EOL;
 		elgg_log('Starting Dropzone cleanup', 'NOTICE');
